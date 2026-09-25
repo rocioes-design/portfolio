@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { InteractiveFolderGallery } from "../components/ui/interactive-folder-gallery";
 
 const indexGroups = [
   { label: "01  CONTEXT", items: [["1.1 Overview", "01"], ["1.2 Define the problem", "02"]] },
@@ -23,8 +24,9 @@ export default function Home() {
     </header>
     <section className="framer-bio">
       <p>Hi! I’m Rocío, an argentinian Designer building interfaces, experiences and systems in Buenos Aires, AR. This is my portfolio.</p>
-      <div className="bio-actions"><a href="mailto:rocio.anahi.esp@gmail.com?subject=Portfolio%20Inquiry&amp;body=Hi%20Roc%C3%ADo%2C%0A%0AI%27m%20reaching%20out..."><span>✉</span> Mail</a><a href="https://framerusercontent.com/assets/R7E4C6GoYcnn7wU21OzS8gonQ.pdf" target="_blank"><span>↧</span> Resume</a></div>
+      <div className="bio-actions"><a href="mailto:rocio.anahi.esp@gmail.com?subject=Portfolio%20Inquiry&amp;body=Hi%20Roc%C3%ADo%2C%0A%0AI%27m%20reaching%20out..."><svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="mail-icon-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#ffd84a" /><stop offset="1" stopColor="#f0a800" /></linearGradient></defs><rect x="2" y="5" width="20" height="15" rx="2" fill="url(#mail-icon-fill)" /><path d="m2.8 6.2 9.2 7 9.2-7" fill="none" stroke="#fff6cc" strokeWidth="1.4" strokeLinejoin="round" /></svg>E-mail</a><a href="https://framerusercontent.com/assets/R7E4C6GoYcnn7wU21OzS8gonQ.pdf" target="_blank"><svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="resume-icon-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#f59ae8" /><stop offset="1" stopColor="#c62fc0" /></linearGradient></defs><path d="M5 2h9.5L20 7.5V21a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1Z" fill="url(#resume-icon-fill)" /><path d="M14.5 2v4.5a1 1 0 0 0 1 1H20Z" fill="#fbd3f5" /><path d="M7.5 11.5h9M7.5 14.5h9M7.5 17.5h9" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" /></svg>Resume</a></div>
     </section>
+    <section className="folder-gallery-section"><InteractiveFolderGallery /></section>
     <section className="subsure-section">
       <Link className="home-project-title" href="/casestudy">Subsure Case Study</Link>
       <div className="subsure-content"><div className="subsure-welcome"><SubsureMark /><div><span>Welcome to</span><strong>Subsure</strong><small>All your subscriptions, in one view</small></div></div><CaseIndex /></div>

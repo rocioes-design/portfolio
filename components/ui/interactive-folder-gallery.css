@@ -1,0 +1,38 @@
+.ifg{position:relative;width:100%;padding:0 0 64px}
+.ifg-stage{position:relative;width:100%;min-height:380px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ifg-frame{position:relative;z-index:0;width:400px;height:380px;display:flex;justify-content:center;pointer-events:none}
+
+.ifg-back{position:absolute;bottom:24px;width:320px;height:224px;filter:drop-shadow(0 25px 25px rgba(160,30,70,.15))}
+.ifg-back-tab{position:absolute;top:0;left:0;width:128px;height:40px;background:linear-gradient(to top,#DF4071,#E55C85);border:1px solid rgba(255,255,255,.2);border-bottom:0;border-radius:12px 12px 0 0}
+.ifg-back-body{position:absolute;top:32px;left:0;right:0;bottom:0;background:linear-gradient(to bottom,#E55C85,#DF4071);border:1px solid rgba(255,255,255,.2);border-radius:0 12px 12px 12px;box-shadow:inset 0 0 40px rgba(120,10,50,.25)}
+.ifg-back-inner{position:absolute;top:40px;left:8px;right:8px;bottom:8px;background:#DF4071;border-radius:8px;box-shadow:inset 0 4px 14px rgba(120,10,50,.35);pointer-events:none}
+
+.ifg-photos{position:absolute;bottom:40px;z-index:10;display:flex;justify-content:center}
+.ifg-photo{position:absolute;bottom:0;left:-116px;width:232px;height:170px;overflow:hidden;border:1px solid rgba(255,255,255,.2);border-radius:12px;box-shadow:0 20px 40px rgba(0,0,0,.5);transform-origin:bottom;pointer-events:none}
+.ifg-photo.is-open{cursor:grab;pointer-events:auto}
+.ifg-photo.is-open:active{cursor:grabbing}
+.ifg-photo img{display:block;width:100%;height:100%;object-fit:cover;pointer-events:none}
+
+.ifg-front{position:absolute;bottom:0;z-index:20;width:340px;height:176px;filter:drop-shadow(0 -12px 28px rgba(160,30,70,.3));cursor:pointer;pointer-events:auto}
+.ifg-front-body{position:relative;width:100%;height:100%;display:flex;align-items:flex-end;justify-content:center;padding-bottom:32px;overflow:hidden;background:linear-gradient(to bottom,#E66089,#E55C85 50%,#DF4071);border:1px solid rgba(255,255,255,.25);border-radius:16px;box-shadow:inset 0 2px 10px rgba(255,255,255,.2)}
+.ifg-front-shine{position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,rgba(255,255,255,.4),transparent)}
+.ifg-label{position:relative;display:flex;align-items:center;justify-content:center;min-width:176px;padding:18px 26px 14px;background-color:#d3c4a2;background-image:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27120%27 height=%27120%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%27.9%27 numOctaves=%272%27 stitchTiles=%27stitch%27/%3E%3CfeColorMatrix values=%270 0 0 0 .35 0 0 0 0 .27 0 0 0 0 .16 0 0 0 .22 0%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27/%3E%3C/svg%3E"),linear-gradient(160deg,#dccfb0,#c9b995);border-radius:2px;box-shadow:0 1px 1px rgba(60,40,20,.18),0 6px 14px rgba(90,30,50,.22);transform:rotate(-3deg)}
+.ifg-label::before{content:"";position:absolute;top:-9px;left:50%;width:62px;height:20px;margin-left:-31px;background:rgba(250,246,236,.62);box-shadow:0 1px 1px rgba(60,40,20,.08);transform:rotate(4deg)}
+.ifg-label span{color:#4a3826;font:500 28px/1 var(--font-caveat),"Segoe Print","Bradley Hand",cursive;white-space:nowrap}
+
+.ifg-hint{position:absolute;bottom:40px;padding:12px 24px;border:1px solid rgba(0,0,0,.1);border-radius:999px;background:rgba(0,0,0,.05);backdrop-filter:blur(12px);color:rgba(0,0,0,.5);font-size:14px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;pointer-events:none}
+
+@media(max-width:700px){
+.ifg{padding:0 0 48px}
+.ifg-stage{min-height:400px}
+.ifg-frame{width:300px;height:400px}
+.ifg-back{width:260px;height:180px}
+.ifg-back-tab{width:104px;height:32px}
+.ifg-back-body{top:26px}
+.ifg-back-inner{top:32px}
+.ifg-photo{left:-80px;width:160px;height:118px}
+.ifg-front{width:280px;height:140px}
+.ifg-front-body{padding-bottom:24px}
+.ifg-hint{bottom:24px;padding:10px 18px;font-size:11px}
+}
+@media(max-width:700px){.ifg-label{min-width:140px;padding:14px 18px 10px}.ifg-label::before{width:50px;height:16px;margin-left:-25px;top:-7px}.ifg-label span{font-size:22px}}
