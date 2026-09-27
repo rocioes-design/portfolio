@@ -9,7 +9,7 @@ const experiments = [
 
 export default function Lab() {
   return <main><div className="page-shell"><Header />
-    <section className="lab-hero"><span className="eyebrow">Design Lab</span><h1>Ideas, experiments and <em>small details.</em></h1><p>A place for work that is playful, unfinished, and worth exploring.</p></section>
+    <section className="lab-hero"><span className="eyebrow">Work</span><h1>Ideas, experiments and <em>small details.</em></h1><p>A place for work that is playful, unfinished, and worth exploring.</p></section>
     <section className="lab-grid">{experiments.map(([category, title, image]) => <article className="lab-card" key={title}><div className="lab-image"><img src={image} alt={title} /></div><p>{category}</p><h2>{title}</h2></article>)}</section>
     <Footer />
   </div></main>;
