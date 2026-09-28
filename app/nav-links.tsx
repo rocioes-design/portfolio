@@ -6,7 +6,7 @@ import { ScribbleText } from "../components/ui/scribble-text";
 const links = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
-  { href: "/lab", label: "Work" },
+  { href: "/work", label: "Work" },
 ];
 
 export function NavLinks() {
