@@ -1,5 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import "./interactive-folder-gallery.css";
 
@@ -7,12 +8,14 @@ export interface GalleryPhoto {
   id: string | number;
   image: string;
   alt?: string;
+  /** Where the photo leads once the folder is open. */
+  href?: string;
 }
 
 const defaultPhotos: GalleryPhoto[] = [
-  { id: 1, image: "/media/folder/subsure.png", alt: "Subsure app welcome screen" },
-  { id: 2, image: "/media/folder/ai-researcher.png", alt: "AI assistant researcher interface on a laptop" },
-  { id: 3, image: "/media/folder/design-system-colors.png", alt: "Design system color foundations" },
+  { id: 1, image: "/media/folder/subsure.png", alt: "Subsure case study", href: "/casestudy" },
+  { id: 2, image: "/media/folder/ai-researcher.png", alt: "AI Assistant Researcher project", href: "/work#work-ai-assistant-researcher" },
+  { id: 3, image: "/media/folder/design-system-colors.png", alt: "Design System project", href: "/work#work-design-system" },
   { id: 4, image: "/media/folder/personal-library.png", alt: "Personal library app with book covers" },
 ];
 
@@ -25,7 +28,7 @@ export interface InteractiveFolderGalleryProps {
 
 // Open layout: one row on wide screens, a 2-column grid on phones.
 // Card sizes live in the CSS; keep these in sync with it.
-const ROW = { cardWidth: 232, gap: 16, y: -150 };
+const ROW = { cardWidth: 232, gap: 16, y: -150, sidePadding: 48 };
 const GRID = { cardWidth: 160, cardHeight: 118, gap: 12, y: -110 };
 
 function useCompactLayout() {
@@ -40,9 +43,25 @@ function useCompactLayout() {
   return isCompact;
 }
 
-function openPosition(i: number, count: number, isCompact: boolean) {
+// Shrinks the open row so it always fits the available width (no clipping needed).
+function useRowScale(ref: React.RefObject<HTMLDivElement | null>, count: number) {
+  const [scale, setScale] = useState(1);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const rowWidth = count * ROW.cardWidth + (count - 1) * ROW.gap;
+    const observer = new ResizeObserver(([entry]) => {
+      setScale(Math.min(1, (entry.contentRect.width - ROW.sidePadding) / rowWidth));
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [ref, count]);
+  return scale;
+}
+
+function openPosition(i: number, count: number, isCompact: boolean, rowScale: number) {
   if (!isCompact) {
-    return { x: (i - (count - 1) / 2) * (ROW.cardWidth + ROW.gap), y: ROW.y };
+    return { x: (i - (count - 1) / 2) * (ROW.cardWidth + ROW.gap) * rowScale, y: ROW.y };
   }
   const row = Math.floor(i / 2);
   const rows = Math.ceil(count / 2);
@@ -63,9 +82,27 @@ export function InteractiveFolderGallery({
   const [isFolderOpen, setIsFolderOpen] = useState(false);
   const [hoverFolder, setHoverFolder] = useState(false);
   const isCompact = useCompactLayout();
+  const rootRef = useRef<HTMLDivElement>(null);
+  const rowScale = useRowScale(rootRef, photos.length);
+  const draggedRef = useRef(false);
+  const firstPhotoRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (!isFolderOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") { setIsFolderOpen(false); setHoverFolder(false); }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [isFolderOpen]);
+
+  const openFolder = (fromKeyboard: boolean) => {
+    setIsFolderOpen(true);
+    if (fromKeyboard) setTimeout(() => firstPhotoRef.current?.focus(), 50);
+  };
 
   return (
-    <div className={`ifg ${className || ""}`}>
+    <div className={`ifg ${className || ""}`} ref={rootRef}>
       <div className="ifg-stage">
 
         <div className="ifg-frame">
@@ -80,7 +117,7 @@ export function InteractiveFolderGallery({
             <div className="ifg-back-inner" />
           </motion.div>
 
-          <div className="ifg-photos">
+          <div className="ifg-photos" aria-hidden={!isFolderOpen}>
             {photos.map((photo, i) => {
               const offset = i - (photos.length - 1) / 2;
 
@@ -89,16 +126,20 @@ export function InteractiveFolderGallery({
               const stackRotate = hoverFolder ? offset * 8 : offset * 3;
               const stackScale = 1 - Math.abs(offset) * 0.03;
 
-              const { x: openX, y: openY } = openPosition(i, photos.length, isCompact);
+              const { x: openX, y: openY } = openPosition(i, photos.length, isCompact, rowScale);
               const openRotate = 0;
-              const openScale = 1;
+              const openScale = isCompact ? 1 : rowScale;
+
+              const image = <img src={photo.image} alt={photo.alt || "Gallery item"} draggable={false} />;
 
               return (
                 <motion.div
                   key={photo.id}
                   drag={isFolderOpen}
                   dragSnapToOrigin={true}
+                  onDragStart={() => { draggedRef.current = true; }}
                   onDragEnd={(e, info) => {
+                    setTimeout(() => { draggedRef.current = false; }, 50);
                     if (info.offset.y > 100 && isFolderOpen) {
                       setIsFolderOpen(false);
                       setHoverFolder(false);
@@ -119,11 +160,22 @@ export function InteractiveFolderGallery({
                     scale: openScale,
                     zIndex: 50
                   }}
-                  whileHover={isFolderOpen ? { scale: openScale + 0.05, zIndex: 100 } : {}}
-                  whileDrag={isFolderOpen ? { scale: openScale + 0.1, rotate: 5, zIndex: 150 } : {}}
+                  whileHover={isFolderOpen ? { scale: openScale * 1.05, zIndex: 100 } : {}}
+                  whileDrag={isFolderOpen ? { scale: openScale * 1.1, rotate: 5, zIndex: 150 } : {}}
                   transition={{ type: "spring", stiffness: 350, damping: 30 }}
                 >
-                  <img src={photo.image} alt={photo.alt || "Gallery item"} />
+                  {photo.href ? (
+                    <Link
+                      href={photo.href}
+                      className="ifg-photo-link"
+                      draggable={false}
+                      tabIndex={isFolderOpen ? 0 : -1}
+                      ref={i === 0 ? (el: HTMLAnchorElement | null) => { firstPhotoRef.current = el; } : undefined}
+                      onClick={(e) => { if (draggedRef.current) e.preventDefault(); }}
+                    >
+                      {image}
+                    </Link>
+                  ) : image}
                 </motion.div>
               );
             })}
@@ -139,9 +191,18 @@ export function InteractiveFolderGallery({
               y: hoverFolder ? 10 : 0,
               pointerEvents: isFolderOpen ? "none" : "auto"
             }}
+            role="button"
+            tabIndex={isFolderOpen ? -1 : 0}
+            aria-expanded={isFolderOpen}
+            aria-label={`${folderName}: open folder`}
             onMouseEnter={() => setHoverFolder(true)}
             onMouseLeave={() => setHoverFolder(false)}
-            onClick={() => setIsFolderOpen(true)}
+            onFocus={() => setHoverFolder(true)}
+            onBlur={() => setHoverFolder(false)}
+            onClick={() => openFolder(false)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openFolder(true); }
+            }}
           >
             <div className="ifg-front-body">
               <div className="ifg-front-shine" />

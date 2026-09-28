@@ -7,7 +7,7 @@ export function Header() {
     <header className="site-header">
       <Link className="identity" href="/">
         <span>Rocío Espinosa</span>
-        <small>Experience &amp; Interface Designer</small>
+        <small>Product Designer</small>
       </Link>
       <NavLinks />
     </header>

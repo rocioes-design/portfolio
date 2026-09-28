@@ -47,3 +47,4 @@
 .work-project__header a{color:#6b7280;font:400 15px/1.4 var(--sans);text-decoration:none}
 .work-project__header a:hover{color:var(--ink)}
 @media(max-width:700px){.work-intro{padding-top:48px}.work-intro h1{font-size:30px;gap:12px;margin-bottom:20px}.work-intro h1 img{width:30px;height:30px}.work-intro p{font-size:16px}.work-projects{gap:60px;padding-top:56px}.work-project__header h2{font-size:19px}}
+.work-project h2{scroll-margin-top:40px}
