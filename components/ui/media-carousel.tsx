@@ -6,7 +6,8 @@ export type CarouselMedia = { type: "image" | "video"; src: string; alt: string 
 
 // Swipeable, snap-scrolling carousel. Videos play only while they are on screen,
 // and not at all (controls instead) for visitors who prefer reduced motion.
-export function MediaCarousel({ media, label }: { media: CarouselMedia[]; label: string }) {
+// `aspectRatio` (e.g. "1916 / 898") overrides the default 16:10 frame to fit unusually shaped media.
+export function MediaCarousel({ media, label, aspectRatio }: { media: CarouselMedia[]; label: string; aspectRatio?: string }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
@@ -47,7 +48,7 @@ export function MediaCarousel({ media, label }: { media: CarouselMedia[]; label:
     <div className="media-carousel" role="group" aria-roledescription="carousel" aria-label={label}>
       <div className="media-carousel__track" ref={trackRef}>
         {media.map((item, i) => (
-          <div className="media-carousel__slide" key={item.src} aria-roledescription="slide" aria-label={`${i + 1} of ${media.length}`}>
+          <div className="media-carousel__slide" key={item.src} style={aspectRatio ? { aspectRatio } : undefined} aria-roledescription="slide" aria-label={`${i + 1} of ${media.length}`}>
             {item.type === "video"
               ? <video src={item.src} aria-label={item.alt} muted loop playsInline preload="metadata" controls={reducedMotion} />
               : <img src={item.src} alt={item.alt} loading="lazy" />}

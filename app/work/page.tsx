@@ -2,10 +2,16 @@ import { Footer, Header } from "../components";
 import { MediaCarousel, type CarouselMedia } from "../../components/ui/media-carousel";
 import { ScribbleText } from "../../components/ui/scribble-text";
 
-type Project = { title: string; link?: { href: string; label: string; external?: boolean }; media: CarouselMedia[] };
+type Project = { title: string; link?: { href: string; label: string; external?: boolean }; media: CarouselMedia[]; aspectRatio?: string };
 
-// Projects and media carried over from the old Framer site's Design Lab page.
+// Projects and media carried over from the old Framer site's Design Lab page, newest first.
 const projects: Project[] = [
+  {
+    title: "The Game Shelf",
+    link: { href: "https://thegameshelf.vercel.app/", label: "Visit the site", external: true },
+    media: [{ type: "video", src: "/media/work/the-game-shelf.mp4", alt: "Screen recording of The Game Shelf website" }],
+    aspectRatio: "1918 / 910",
+  },
   {
     title: "Subsure",
     link: { href: "/casestudy", label: "Read the case study" },
@@ -75,7 +81,7 @@ export default function Work() {
               </a>
             )}
           </header>
-          <MediaCarousel media={project.media} label={`${project.title} gallery`} />
+          <MediaCarousel media={project.media} label={`${project.title} gallery`} aspectRatio={project.aspectRatio} />
         </section>
       ))}
     </div>
