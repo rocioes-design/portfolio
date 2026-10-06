@@ -7,6 +7,16 @@ type Project = { title: string; link?: { href: string; label: string; external?:
 // Projects and media carried over from the old Framer site's Design Lab page, newest first.
 const projects: Project[] = [
   {
+    title: "Loopline",
+    link: { href: "/loopline", label: "Read the case study" },
+    media: [
+      { type: "image", src: "/media/loopline/overview.webp", alt: "Loopline operations overview with downtime, empty belt time and a facility timeline" },
+      { type: "video", src: "/media/loopline/prototype-holiday.mp4", alt: "Prototype: adding a holiday exception and previewing the shifts it removes" },
+      { type: "image", src: "/media/loopline/schedule.webp", alt: "Loopline plant schedule with shifts, breaks and a late start exception" },
+      { type: "video", src: "/media/loopline/prototype-late-start.mp4", alt: "Prototype: moving tomorrow's first shift an hour later" },
+    ],
+  },
+  {
     title: "The Game Shelf",
     link: { href: "https://thegameshelf.vercel.app/", label: "Visit the site", external: true },
     media: [{ type: "video", src: "/media/work/the-game-shelf.mp4", alt: "Screen recording of The Game Shelf website" }],
