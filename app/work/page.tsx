@@ -2,7 +2,8 @@ import { Footer, Header } from "../components";
 import { MediaCarousel, type CarouselMedia } from "../../components/ui/media-carousel";
 import { ScribbleText } from "../../components/ui/scribble-text";
 
-type Project = { title: string; link?: { href: string; label: string; external?: boolean }; media: CarouselMedia[]; aspectRatio?: string };
+// Set `hidden: true` to take a project off the page without deleting it.
+type Project = { title: string; link?: { href: string; label: string; external?: boolean }; media: CarouselMedia[]; aspectRatio?: string; hidden?: boolean };
 
 // Projects and media carried over from the old Framer site's Design Lab page, newest first.
 const projects: Project[] = [
@@ -21,6 +22,7 @@ const projects: Project[] = [
     link: { href: "https://thegameshelf.vercel.app/", label: "Visit the site", external: true },
     media: [{ type: "video", src: "/media/work/the-game-shelf.mp4", alt: "Screen recording of The Game Shelf website" }],
     aspectRatio: "1918 / 910",
+    hidden: true, // Rocío is still working on it; remove this line to publish again.
   },
   {
     title: "Subsure",
@@ -81,7 +83,7 @@ export default function Work() {
       <p>This page features my work: completed projects or just standalone components and concept experiments I enjoyed creating. It’s my space for inspiration and discovery.</p>
     </section>
     <div className="work-projects">
-      {projects.map((project) => (
+      {projects.filter((project) => !project.hidden).map((project) => (
         <section className="work-project" key={project.title} aria-labelledby={slug(project.title)}>
           <header className="work-project__header">
             <h2 id={slug(project.title)}>{project.title}</h2>

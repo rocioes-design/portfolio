@@ -4,3 +4,5 @@ out
 .env*
 !.env.example
 *.tsbuildinfo
+# Local Claude Code skills (tools for working on the site, not part of it)
+.claude/skills/
