@@ -13,9 +13,9 @@ export interface GalleryPhoto {
 }
 
 const defaultPhotos: GalleryPhoto[] = [
-  { id: 1, image: "/media/folder/subsure.png", alt: "Subsure case study", href: "/casestudy" },
-  { id: 2, image: "/media/folder/ai-researcher.png", alt: "AI Assistant Researcher project", href: "/work#work-ai-assistant-researcher" },
-  { id: 3, image: "/media/folder/design-system-colors.png", alt: "Design System project", href: "/work#work-design-system" },
+  { id: 1, image: "/media/folder/whether.webp", alt: "Whether case study: the Today screen and Drip, the raindrop mascot", href: "/whether" },
+  { id: 2, image: "/media/folder/loopline.webp", alt: "Loopline case study: the operations overview", href: "/loopline" },
+  { id: 3, image: "/media/folder/subsure.png", alt: "Subsure case study", href: "/casestudy" },
   { id: 4, image: "/media/folder/personal-library.png", alt: "Personal library app with book covers" },
 ];
 
