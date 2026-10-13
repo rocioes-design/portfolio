@@ -8,6 +8,17 @@ type Project = { title: string; link?: { href: string; label: string; external?:
 // Projects and media carried over from the old Framer site's Design Lab page, newest first.
 const projects: Project[] = [
   {
+    title: "Whether",
+    link: { href: "/whether", label: "Read the case study" },
+    media: [
+      { type: "image", src: "/media/work/whether-1.webp", alt: "Whether Today screens for rain, sun and a cold night, with Drip the raindrop mascot" },
+      { type: "image", src: "/media/work/whether-2.webp", alt: "Whether onboarding: how you feel the cold, the welcome screen and all set" },
+      { type: "image", src: "/media/work/whether-3.webp", alt: "Whether heading out sheet and the Today screen while you’re out" },
+      { type: "image", src: "/media/work/whether-4.webp", alt: "Whether trip to Madrid: typical weather, an early forecast and the real forecast" },
+      { type: "image", src: "/media/work/whether-5.webp", alt: "Whether home-screen widgets and the app icon in light and dark" },
+    ],
+  },
+  {
     title: "Loopline",
     link: { href: "/loopline", label: "Read the case study" },
     media: [
