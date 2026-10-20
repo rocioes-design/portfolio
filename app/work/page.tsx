@@ -41,15 +41,9 @@ const projects: Project[] = [
     media: [{ type: "image", src: "/media/folder/subsure.png", alt: "Subsure welcome screen: all your subscriptions, in one view" }],
   },
   {
-    title: "AI Assistant Researcher",
-    media: [
-      { type: "video", src: "/media/ai-1.mp4", alt: "AI Assistant Researcher walkthrough" },
-      { type: "video", src: "/media/ai-2.mp4", alt: "AI Assistant Researcher deep search flow" },
-      { type: "image", src: "/media/work/ai-1.png", alt: "AI Assistant Researcher results with match score and citation filters" },
-      { type: "image", src: "/media/work/ai-2.png", alt: "AI Assistant Researcher chat next to a ranked list of papers" },
-      { type: "video", src: "/media/ai-4.mp4", alt: "AI Assistant Researcher interaction" },
-      { type: "video", src: "/media/ai-3.mp4", alt: "AI Assistant Researcher detail animation" },
-    ],
+    title: "My digital library",
+    link: { href: "https://my-digital-library.framer.website/", label: "Visit the site", external: true },
+    media: [{ type: "image", src: "/media/work/my-digital-library.webp", alt: "My digital library: a personal library with a genre filter and a grid of book covers" }],
   },
   {
     title: "Design System",
@@ -65,22 +59,6 @@ const projects: Project[] = [
     media: [
       { type: "image", src: "/media/work/deel-1.png", alt: "Deel dashboard redesign with balance, withdrawals and contracts" },
       { type: "image", src: "/media/work/deel-2.png", alt: "Another screen from the Deel redesign" },
-    ],
-  },
-  {
-    title: "Cryptocurrency components",
-    media: [
-      { type: "image", src: "/media/work/crypto-1.png", alt: "Cryptocurrency prices table by market cap" },
-      { type: "image", src: "/media/work/crypto-2.png", alt: "Cryptocurrency component detail" },
-      { type: "image", src: "/media/work/crypto-3.png", alt: "Cryptocurrency component variations" },
-    ],
-  },
-  {
-    title: "UI interactions",
-    media: [
-      { type: "video", src: "/media/work/ui-interactions-1.mp4", alt: "UI interaction exploration" },
-      { type: "video", src: "/media/work/ui-interactions-2.mp4", alt: "UI interaction exploration" },
-      { type: "video", src: "/media/work/ui-interactions-3.mp4", alt: "UI interaction exploration" },
     ],
   },
 ];
