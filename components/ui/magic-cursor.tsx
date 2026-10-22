@@ -55,6 +55,8 @@ export function MagicCursor({
     };
 
     const onMove = (e: MouseEvent) => {
+      // Product prototypes (like Daywell) opt out, so the sparkles don't end up in screen recordings.
+      if (document.querySelector("[data-no-magic-cursor]")) return;
       const now = Date.now();
       const farEnough = Math.hypot(e.clientX - lastPos.x, e.clientY - lastPos.y) >= minDistanceBetween;
       const longEnough = now - lastTime > minTimeBetween;
