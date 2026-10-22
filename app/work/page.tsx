@@ -8,6 +8,16 @@ type Project = { title: string; link?: { href: string; label: string; external?:
 // Projects and media carried over from the old Framer site's Design Lab page, newest first.
 const projects: Project[] = [
   {
+    title: "Daywell",
+    link: { href: "/daywell/prototype", label: "Try the prototype" },
+    media: [
+      { type: "video", src: "/media/daywell/signin.mp4", alt: "Daywell prototype: signing in with an email and a 6-digit code" },
+      { type: "video", src: "/media/daywell/request.mp4", alt: "Daywell prototype: requesting Dec 22–26 off, with the balance and the Christmas holiday worked out" },
+      { type: "video", src: "/media/daywell/approve.mp4", alt: "Daywell prototype: a manager approving a request after checking who else on the team is off" },
+      { type: "video", src: "/media/daywell/bulk.mp4", alt: "Daywell prototype: a manager approving three requests at once" },
+    ],
+  },
+  {
     title: "Whether",
     link: { href: "/whether", label: "Read the case study" },
     media: [
