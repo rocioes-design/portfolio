@@ -1,21 +1,33 @@
 import { Footer, Header } from "../components";
 import { MediaCarousel, type CarouselMedia } from "../../components/ui/media-carousel";
+import type { ProjectWindowData } from "../../components/ui/project-window";
 import { ScribbleText } from "../../components/ui/scribble-text";
+import { Showcase } from "./showcase";
 
 // Set `hidden: true` to take a project off the page without deleting it.
-type Project = { title: string; link?: { href: string; label: string; external?: boolean }; media: CarouselMedia[]; aspectRatio?: string; hidden?: boolean };
+// A project with `window` opens in a project window ("View project") instead of linking out.
+type Project = { title: string; link?: { href: string; label: string; external?: boolean }; media: CarouselMedia[]; aspectRatio?: string; hidden?: boolean; window?: ProjectWindowData };
+
+const DAYWELL_CLIPS = [
+  { src: "/media/daywell/signin.mp4", label: "Sign in", alt: "Daywell prototype: signing in with an email and a 6-digit code" },
+  { src: "/media/daywell/request.mp4", label: "Request time off", alt: "Daywell prototype: requesting Dec 22–26 off, with the balance and the Christmas holiday worked out" },
+  { src: "/media/daywell/approve.mp4", label: "Approve a request", alt: "Daywell prototype: a manager approving a request after checking who else on the team is off" },
+  { src: "/media/daywell/bulk.mp4", label: "Bulk approve", alt: "Daywell prototype: a manager approving three requests at once" },
+];
 
 // Projects and media carried over from the old Framer site's Design Lab page, newest first.
 const projects: Project[] = [
   {
     title: "Daywell",
-    link: { href: "/daywell/prototype", label: "Try the prototype" },
-    media: [
-      { type: "video", src: "/media/daywell/signin.mp4", alt: "Daywell prototype: signing in with an email and a 6-digit code" },
-      { type: "video", src: "/media/daywell/request.mp4", alt: "Daywell prototype: requesting Dec 22–26 off, with the balance and the Christmas holiday worked out" },
-      { type: "video", src: "/media/daywell/approve.mp4", alt: "Daywell prototype: a manager approving a request after checking who else on the team is off" },
-      { type: "video", src: "/media/daywell/bulk.mp4", alt: "Daywell prototype: a manager approving three requests at once" },
-    ],
+    media: DAYWELL_CLIPS.map(({ src, alt }) => ({ type: "video", src, alt })),
+    window: {
+      domain: "daywell.app",
+      title: "Daywell",
+      facts: [["Role", "Product Designer"], ["Platform", "Desktop web app"], ["Tools", "Figma, Claude Code"]],
+      description: "A time-off tool for small teams. Employees see what they have left and ask for days off in a few clicks, with weekends and holidays worked out for them. Managers approve or decline with a team-coverage check, one request at a time or several at once.",
+      clips: DAYWELL_CLIPS,
+      link: { href: "/daywell/prototype", label: "Try the prototype" },
+    },
   },
   {
     title: "Whether",
@@ -84,6 +96,7 @@ export default function Work() {
     <div className="work-projects">
       {projects.filter((project) => !project.hidden).map((project) => (
         <section className="work-project" key={project.title} aria-labelledby={slug(project.title)}>
+          {project.window ? <Showcase id={slug(project.title)} title={project.title} media={project.media} project={project.window} /> : <>
           <header className="work-project__header">
             <h2 id={slug(project.title)}>{project.title}</h2>
             {project.link && (
@@ -93,6 +106,7 @@ export default function Work() {
             )}
           </header>
           <MediaCarousel media={project.media} label={`${project.title} gallery`} aspectRatio={project.aspectRatio} />
+          </>}
         </section>
       ))}
     </div>

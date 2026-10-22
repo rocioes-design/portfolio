@@ -7,7 +7,10 @@ export type CarouselMedia = { type: "image" | "video"; src: string; alt: string 
 // Swipeable, snap-scrolling carousel. Videos play only while they are on screen,
 // and not at all (controls instead) for visitors who prefer reduced motion.
 // `aspectRatio` (e.g. "1916 / 898") overrides the default 16:10 frame to fit unusually shaped media.
-export function MediaCarousel({ media, label, aspectRatio }: { media: CarouselMedia[]; label: string; aspectRatio?: string }) {
+// With `onSelect`, each slide is a button (e.g. to open the project in a window at that slide).
+export function MediaCarousel({ media, label, aspectRatio, onSelect, selectLabel = "View project" }: {
+  media: CarouselMedia[]; label: string; aspectRatio?: string; onSelect?: (index: number) => void; selectLabel?: string;
+}) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
@@ -50,8 +53,13 @@ export function MediaCarousel({ media, label, aspectRatio }: { media: CarouselMe
         {media.map((item, i) => (
           <div className="media-carousel__slide" key={item.src} style={aspectRatio ? { aspectRatio } : undefined} aria-roledescription="slide" aria-label={`${i + 1} of ${media.length}`}>
             {item.type === "video"
-              ? <video src={item.src} aria-label={item.alt} muted loop playsInline preload="metadata" controls={reducedMotion} />
+              ? <video src={item.src} aria-label={item.alt} muted loop playsInline preload="metadata" controls={reducedMotion && !onSelect} />
               : <img src={item.src} alt={item.alt} loading="lazy" />}
+            {onSelect && (
+              <button type="button" className="media-carousel__open" onClick={() => onSelect(i)} aria-label={`${selectLabel}: ${item.alt}`}>
+                <span className="media-carousel__hint" aria-hidden="true">{selectLabel}</span>
+              </button>
+            )}
           </div>
         ))}
       </div>
