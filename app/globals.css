@@ -51,3 +51,5 @@
 .work-project__open:focus-visible{outline:2px solid #DF517A;outline-offset:3px;border-radius:4px}
 @media(max-width:700px){.work-intro{padding-top:48px}.work-intro h1{font-size:30px;gap:12px;margin-bottom:20px}.work-intro h1 img{width:30px;height:30px}.work-intro p{font-size:16px}.work-projects{gap:60px;padding-top:56px}.work-project__header h2{font-size:19px}}
 .work-project h2{scroll-margin-top:40px}
+/* Bloom logo inside the home link: spins a full turn each time the pointer moves onto it. */
+.identity{align-items:center}.identity .bloom-logo{display:grid;place-items:center;width:24px;height:24px;margin-right:4px;color:#DF4071}.bloom-logo svg{width:22px;height:22px;fill:currentColor;transform:rotate(calc(var(--turns,0) * 360deg));transition:transform .5s cubic-bezier(.34,1.4,.64,1)}@media(prefers-reduced-motion:reduce){.bloom-logo svg{transition:none}}
