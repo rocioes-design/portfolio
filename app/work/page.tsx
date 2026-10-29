@@ -91,7 +91,7 @@ export default function Work() {
   return <main><div className="page-shell"><Header />
     <section className="work-intro">
       <h1><img src="/media/work/pen.svg" alt="" /><span>Work</span><img src="/media/work/hot-beverage.svg" alt="" /></h1>
-      <p>This page features my work: completed projects or just standalone components and concept experiments I enjoyed creating. It’s my space for inspiration and discovery.</p>
+      <p>Due to confidentiality agreements, I can’t publicly share my professional work, so this page features personal projects that showcase my design process and skills.</p>
     </section>
     <div className="work-projects">
       {projects.filter((project) => !project.hidden).map((project) => (

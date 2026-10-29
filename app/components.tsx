@@ -38,6 +38,7 @@ export function Footer() {
           <Link href="/"><ScribbleText>Home</ScribbleText></Link>
           <Link href="/about"><ScribbleText>About</ScribbleText></Link>
           <Link href="/work"><ScribbleText>Work</ScribbleText></Link>
+          <Link href="/sketches"><ScribbleText>Sketches</ScribbleText></Link>
           <a href="https://www.linkedin.com/in/rocioanahiespinosa" target="_blank" rel="noreferrer"><ScribbleText>LinkedIn</ScribbleText></a>
         </nav>
         <small>Site set in Averia Serif Libre and Segoe UI</small>

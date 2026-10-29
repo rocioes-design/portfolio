@@ -36,18 +36,28 @@
 }
 /* Kraft-paper note: the paper lives on ::after so its rough edge (mask) doesn't clip the text or tape;
    the shadow is a drop-shadow on the label so it follows that rough outline. */
-.ifg-label{position:relative;display:flex;align-items:center;justify-content:center;min-width:176px;padding:18px 26px 14px;filter:drop-shadow(0 1px 1px rgba(60,40,20,.2)) drop-shadow(0 6px 10px rgba(90,30,50,.2));transform:rotate(-3deg)}
+.ifg-label{position:relative;display:flex;align-items:center;justify-content:center;min-width:176px;padding:18px 26px 14px;filter:drop-shadow(0 1px 1px rgba(60,40,20,.2)) drop-shadow(0 6px 10px rgba(90,30,50,.2));transform:rotate(-3deg);transform-origin:50% 0;animation:ifg-breeze 6s ease-in-out infinite}
+/* A soft breeze: the label swings from its tape with uneven gusts, so the loop doesn't feel mechanical. */
+@keyframes ifg-breeze{
+  0%,100%{transform:rotate(-3deg)}
+  18%{transform:rotate(-1.8deg) skewX(-1.2deg)}
+  30%{transform:rotate(-2.5deg) skewX(.4deg)}
+  42%{transform:rotate(-1.4deg) skewX(-.8deg)}
+  62%{transform:rotate(-3.6deg) skewX(.9deg)}
+  80%{transform:rotate(-2.6deg) skewX(-.3deg)}
+}
+@media(prefers-reduced-motion:reduce){.ifg-label{animation:none}}
 .ifg-label::after{content:"";position:absolute;inset:0;z-index:-1;
-  background-color:#d3c4a2;
+  background-color:#f6eedb;
   background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='d'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='3' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .28 0 0 0 0 .2 0 0 0 0 .11 0 0 0 1.35 -.56'/%3E%3C/filter%3E%3Cfilter id='l'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 .98 0 0 0 0 .93 1.8 0 0 0 -1.12'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23d)'/%3E%3Crect width='100%25' height='100%25' filter='url(%23l)'/%3E%3C/svg%3E"),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='160'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .03' numOctaves='3' seed='5' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .36 0 0 0 0 .28 0 0 0 0 .16 0 0 0 .55 -.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E"),
-    linear-gradient(160deg,#ddd0b1,#c7b792);
-  box-shadow:inset 0 0 12px rgba(120,90,50,.18);
-  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 72' preserveAspectRatio='none'%3E%3Cfilter id='r' x='-5%25' y='-5%25' width='110%25' height='110%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.5' numOctaves='2' seed='7'/%3E%3CfeDisplacementMap in='SourceGraphic' scale='2.4'/%3E%3C/filter%3E%3Crect x='1.4' y='1.4' width='217.2' height='69.2' fill='%23fff' filter='url(%23r)'/%3E%3C/svg%3E") 0 0/100% 100%;
-  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 72' preserveAspectRatio='none'%3E%3Cfilter id='r' x='-5%25' y='-5%25' width='110%25' height='110%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.5' numOctaves='2' seed='7'/%3E%3CfeDisplacementMap in='SourceGraphic' scale='2.4'/%3E%3C/filter%3E%3Crect x='1.4' y='1.4' width='217.2' height='69.2' fill='%23fff' filter='url(%23r)'/%3E%3C/svg%3E") 0 0/100% 100%}
-.ifg-label::before{content:"";position:absolute;top:-9px;left:50%;width:62px;height:20px;margin-left:-31px;background:rgba(250,246,236,.62);box-shadow:0 1px 1px rgba(60,40,20,.08);transform:rotate(4deg)}
-.ifg-label span{color:#4a3826;font:400 17px/1.6 var(--font-homemade-apple),"Segoe Print","Bradley Hand",cursive;white-space:nowrap}
+    var(--paper-grain),
+    var(--paper-fibers),
+    linear-gradient(160deg,#fbf5e6,#f1e6cb);
+  box-shadow:inset 0 0 12px rgba(150,115,60,.12);
+  -webkit-mask:var(--paper-edge) 0 0/100% 100%;
+  mask:var(--paper-edge) 0 0/100% 100%}
+.ifg-label::before{content:"";position:absolute;top:-9px;left:50%;width:62px;height:20px;margin-left:-31px;background:rgba(255,253,247,.72);box-shadow:0 1px 1px rgba(60,40,20,.1);transform:rotate(4deg)}
+.ifg-label span{color:#4a3826;font:400 15px/1.6 var(--font-label),"Segoe Print","Bradley Hand",cursive;white-space:nowrap}
 
 .ifg-hint{position:absolute;bottom:40px;padding:12px 24px;border:1px solid rgba(0,0,0,.1);border-radius:999px;background:rgba(0,0,0,.05);backdrop-filter:blur(12px);color:rgba(0,0,0,.5);font-size:14px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;pointer-events:none}
 
@@ -64,4 +74,4 @@
 .ifg-front-body{padding-bottom:24px}
 .ifg-hint{bottom:24px;padding:10px 18px;font-size:11px}
 }
-@media(max-width:700px){.ifg-label{min-width:140px;padding:14px 18px 10px}.ifg-label::before{width:50px;height:16px;margin-left:-25px;top:-7px}.ifg-label span{font-size:14px}}
+@media(max-width:700px){.ifg-label{min-width:140px;padding:14px 18px 10px}.ifg-label::before{width:50px;height:16px;margin-left:-25px;top:-7px}.ifg-label span{font-size:13px}}
