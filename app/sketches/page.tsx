@@ -10,6 +10,13 @@ export const metadata: Metadata = {
 // Newest first. `wide` makes a sketch span both columns.
 const sketches: Sketch[] = [
   {
+    file: "ascii-card.tsx",
+    title: "ASCII card",
+    href: "/sketches/card",
+    embed: { src: "/sketches/card", width: 1040, height: 640 },
+    wide: true,
+  },
+  {
     file: "roles-permissions.tsx",
     title: "Roles & permissions",
     href: "/sketches/roles-permissions",

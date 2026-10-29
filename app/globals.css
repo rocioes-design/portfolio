@@ -22,21 +22,24 @@
 .about-stamp__paper{--r:5px;padding:calc(2*var(--r));background:#fffaf0;-webkit-mask:radial-gradient(var(--r),#0000 98%,#000) round calc(-1.5*var(--r)) calc(-1.5*var(--r))/calc(3*var(--r)) calc(3*var(--r)),linear-gradient(#000 0 0) no-repeat 50%/calc(100% - 3*var(--r)) calc(100% - 3*var(--r));mask:radial-gradient(var(--r),#0000 98%,#000) round calc(-1.5*var(--r)) calc(-1.5*var(--r))/calc(3*var(--r)) calc(3*var(--r)),linear-gradient(#000 0 0) no-repeat 50%/calc(100% - 3*var(--r)) calc(100% - 3*var(--r))}
 .about-book::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,.22),rgba(255,255,255,.2) 3px,rgba(0,0,0,.1) 7px,transparent 14px);pointer-events:none}
 .about-card--doodle{filter:none;pointer-events:none}.about-doodle{display:block;width:100%;height:auto}
+/* FAQ as a chat: questions are gray bubbles (white once open), answers come back in pink next to the Bloom mark. Motion lives in about-faq.tsx. */
 .about-faq-section{max-width:760px;margin:56px auto 0}
-.about-faq{border-top:1px solid var(--line);text-align:left}
-.about-faq__item{border-bottom:1px solid var(--line)}
-.about-faq__header{margin:0;font:inherit}
-.about-faq__trigger{display:flex;align-items:center;justify-content:space-between;gap:24px;width:100%;padding:22px 4px;border:0;background:none;color:var(--ink);font:500 17px/1.4 var(--sans);text-align:left;cursor:pointer}
-.about-faq__trigger:hover{color:#DF517A}
-.about-faq__trigger:focus-visible{outline:2px solid #DF517A;outline-offset:2px;border-radius:4px}
-.about-faq__icon{flex:none;width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;transition:transform .25s cubic-bezier(.2,.8,.2,1)}
-.about-faq__trigger[data-panel-open] .about-faq__icon{transform:rotate(45deg)}
-.about-faq__panel{height:var(--accordion-panel-height);overflow:hidden;transition:height .25s cubic-bezier(.2,.8,.2,1)}
-.about-faq__panel[data-starting-style],.about-faq__panel[data-ending-style]{height:0}
-.about-faq__content p{margin:0;padding:0 40px 22px 4px;color:#5a5a5a;font:400 16px/1.65 var(--sans)}
-.about-faq__content a{color:var(--ink);text-decoration:none}
-@media(max-width:700px){.about-faq-section{margin-top:36px}.about-faq__trigger{padding:18px 2px;font-size:15px}.about-faq__content p{padding:0 8px 18px 2px;font-size:15px}}
-@media(prefers-reduced-motion:reduce){.about-faq__panel,.about-faq__icon{transition:none}}
+.about-faq{display:flex;flex-direction:column;gap:12px;text-align:left}
+.about-faq__question{align-self:flex-start;max-width:85%;padding:10px 16px;border:0;border-radius:18px 18px 18px 6px;background:var(--soft);color:var(--ink);font:400 15px/1.4 var(--sans);letter-spacing:-.01em;text-align:left;cursor:pointer;transition:background-color .2s,box-shadow .2s}
+.about-faq__question:hover{background:#eae9e4}
+.about-faq__question[aria-expanded="true"]{background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.06),0 0 0 1px rgba(0,0,0,.03)}
+.about-faq__question:focus-visible{outline:2px solid #DF517A;outline-offset:2px}
+.about-faq__reply{display:flex;align-items:flex-end;justify-content:flex-end;gap:8px}
+.about-faq__answer{max-width:85%;padding:10px 16px;border-radius:18px 18px 6px 18px;background:#CF3563;color:#fff}
+.about-faq__answer p{margin:0;font:400 15px/1.45 var(--sans);letter-spacing:-.01em}
+/* The link text sits in an inline-flex span, which a text-decoration underline would skip, so the underline is a border */
+.about-faq__answer a{color:#fff;text-decoration:none}
+.about-faq__answer a .scribble-text{border-bottom:1px solid rgba(255,255,255,.55);transition:border-color .15s}
+.about-faq__answer a:is(:hover,:focus-visible) .scribble-text{border-color:transparent}
+.about-faq__answer .scribble-text__graphic{stroke:#fff}
+.about-faq__avatar{flex:none;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.6);box-shadow:0 12px 32px -12px rgba(0,0,0,.15),0 0 0 1px rgba(0,0,0,.04);-webkit-backdrop-filter:blur(40px) saturate(150%);backdrop-filter:blur(40px) saturate(150%)}
+.about-faq__avatar svg{width:18px;height:18px;fill:#DF4071}
+@media(max-width:700px){.about-faq-section{margin-top:36px}.about-faq__question,.about-faq__answer{max-width:88%}}
 .work-intro{max-width:760px;margin:0 auto;padding:88px 0 0;text-align:center}
 .work-intro h1{display:flex;align-items:center;justify-content:center;gap:18px;margin:0 0 28px;color:var(--ink);font:400 44px/1.12 var(--font-averia-serif),"Iowan Old Style",serif;letter-spacing:.005em}
 .work-intro h1 img{width:44px;height:44px}
