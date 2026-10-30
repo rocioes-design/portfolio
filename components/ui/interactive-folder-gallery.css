@@ -14,7 +14,7 @@
 .ifg-photo.is-open:active{cursor:grabbing}
 .ifg-photo img{display:block;width:100%;height:100%;object-fit:cover;pointer-events:none}
 .ifg-photo-link{display:block;width:100%;height:100%;border-radius:inherit}
-.ifg-photo-link:focus-visible{outline:3px solid #DF517A;outline-offset:-3px}
+.ifg-photo-link:focus-visible{outline:3px solid var(--pink);outline-offset:-3px}
 .ifg-front:focus-visible{outline:none}
 .ifg-front:focus-visible .ifg-front-body{outline:3px solid #fff;outline-offset:-6px}
 

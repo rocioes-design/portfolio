@@ -7,11 +7,16 @@ import { SignatureReveal } from "../components/ui/signature-reveal";
 export function Header() {
   return (
     <header className="site-header">
-      <Link className="identity" href="/">
-        <BloomLogo />
-        <span>Rocío Espinosa</span>
-        <small>Product Designer</small>
-      </Link>
+      {/* The Bloom opens the design system; the name goes home */}
+      <div className="identity">
+        <Link className="identity__logo" href="/design-system" aria-label="Design system" title="Design system">
+          <BloomLogo />
+        </Link>
+        <Link className="identity__name" href="/">
+          <span>Rocío Espinosa</span>
+          <small>Product Designer</small>
+        </Link>
+      </div>
       <NavLinks />
     </header>
   );

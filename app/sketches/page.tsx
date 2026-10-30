@@ -7,21 +7,20 @@ export const metadata: Metadata = {
   description: "Standalone components and concept experiments by Rocío Espinosa.",
 };
 
-// Newest first. `wide` makes a sketch span both columns.
+// Newest first, two per row. `wide` makes a sketch span both columns.
+// The card is drawn narrower so it fills its window, at the same proportions as the roles one.
 const sketches: Sketch[] = [
   {
     file: "ascii-card.tsx",
     title: "ASCII card",
     href: "/sketches/card",
-    embed: { src: "/sketches/card", width: 1040, height: 640 },
-    wide: true,
+    embed: { src: "/sketches/card", width: 760, height: 687 },
   },
   {
     file: "roles-permissions.tsx",
     title: "Roles & permissions",
     href: "/sketches/roles-permissions",
     embed: { src: "/sketches/roles-permissions", width: 1040, height: 940 },
-    wide: true,
   },
 ];
 
