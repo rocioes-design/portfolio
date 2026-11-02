@@ -1,8 +1,10 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { BLOOM_PATH } from "../../components/ui/bloom-logo";
+import { FluidHoverHighlight, useFluidHover } from "../../components/ui/fluid-hover";
+import { instant, sendExit, sendSpring } from "../../components/ui/motion";
 
 // Live specimens that need state: replaying a motion, or a value you can copy
 
@@ -64,8 +66,8 @@ export function SendDemo() {
               className="about-faq__reply"
               initial={{ opacity: 0, scale: 0.6, y: 12 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, transition: { duration: reduced ? 0 : 0.16, ease: [0.4, 0, 1, 1] } }}
-              transition={reduced ? { duration: 0 } : { type: "spring", visualDuration: 0.42, bounce: 0.28 }}
+              exit={{ opacity: 0, scale: 0.9, transition: reduced ? instant : sendExit }}
+              transition={reduced ? instant : sendSpring}
               style={{ originX: 1, originY: 1 }}
             >
               <div className="about-faq__answer"><p>Yes! Email me.</p></div>
@@ -84,5 +86,19 @@ export function WindowDemo() {
     <Replay>
       {(key) => <div className="ds-window-demo" key={key}><div className="ds-window-demo__bar"><i /><i /><i /></div></div>}
     </Replay>
+  );
+}
+
+// The header's gliding hover, on its own
+export function GlideDemo() {
+  const strip = useRef<HTMLDivElement>(null);
+  const hover = useFluidHover(strip, { axis: "x" });
+  return (
+    <div className="ds-glide" ref={strip} {...hover.handlers}>
+      <FluidHoverHighlight hover={hover} className="ds-glide__hover" />
+      {["Home", "About", "Work", "Sketches"].map((label, i) => (
+        <a key={label} href="#animations" ref={hover.register(i)} data-hovered={hover.active === i || undefined}>{label}</a>
+      ))}
+    </div>
   );
 }

@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useMotionValueEvent, useReducedMotion, useSpring, useTransform } from "framer-motion";
 import { BLOOM_PATH } from "../../components/ui/bloom-logo";
+import { FluidHoverHighlight, useFluidHover } from "../../components/ui/fluid-hover";
 
 // Adapted from Rare UI's Rail TOC: a rail runs through a dot for every heading, solid up to where
 // you are and dashed after. The Bloom mark rides the rail and rolls as it travels.
@@ -13,6 +14,12 @@ const INDENT = 16;
 const LABEL_GAP = 16;
 const OFFSET = 96; // how far below the top of the window a heading counts as reached
 const TRAVEL = { stiffness: 140, damping: 26, mass: 0.6 };
+
+// The hover highlight starts just before the label, not under the rail
+const labelInset = (el: HTMLElement) => {
+  const padding = parseFloat(getComputedStyle(el).paddingLeft);
+  return { x: el.offsetLeft + padding - 8, w: el.offsetWidth - padding + 8 };
+};
 
 type Point = { x: number; y: number };
 type Geometry = { nodes: Point[]; d: string; width: number; height: number };
@@ -53,6 +60,7 @@ export function RailToc({ items, title = "Overview" }: { items: TocItem[]; title
   const total = useRef(0);
   const placed = useRef(false);
   const pinned = useRef<number | null>(null); // a clicked heading holds until the reader scrolls
+  const hover = useFluidHover(list, { inset: labelInset });
 
   const target = useMotionValue(0);
   const travel = useSpring(target, TRAVEL);
@@ -183,7 +191,7 @@ export function RailToc({ items, title = "Overview" }: { items: TocItem[]; title
         <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 4h12M2 8h8M2 12h10" /></svg>
         {title}
       </a>
-      <ul className="rail-toc__list" ref={list}>
+      <ul className="rail-toc__list" ref={list} {...hover.handlers}>
         {geometry && (
           <svg className="rail-toc__rail" width={geometry.width} height={geometry.height} aria-hidden="true">
             <path ref={path} d={geometry.d} className="rail-toc__track" />
@@ -198,9 +206,12 @@ export function RailToc({ items, title = "Overview" }: { items: TocItem[]; title
             <svg viewBox="0 0 100 100"><path fillRule="evenodd" d={BLOOM_PATH} /></svg>
           </motion.span>
         )}
+        <FluidHoverHighlight hover={hover} className="rail-toc__hover" />
         {items.map((item, i) => (
           <li key={item.id} ref={(el) => { rows.current[i] = el; }}>
             <a
+              ref={hover.register(i)}
+              data-hovered={hover.active === i || undefined}
               href={`#${item.id}`}
               className="rail-toc__link"
               aria-current={i === active ? "location" : undefined}

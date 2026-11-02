@@ -1,6 +1,7 @@
 "use client";
 import { Fragment, useId, useState, type KeyboardEvent } from "react";
-import { AnimatePresence, motion, useReducedMotion, type Transition } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { instant as INSTANT, sendExit as LEAVE, sendShift as SHIFT, sendSpring as SEND } from "../../components/ui/motion";
 import { BLOOM_PATH } from "../../components/ui/bloom-logo";
 import { ScribbleText } from "../../components/ui/scribble-text";
 
@@ -34,10 +35,7 @@ const items = [
 
 // Motion matches Rare UI's FAQ: the answer pops out of the Bloom mark with a little bounce,
 // the bubbles below slide down to make room, and a closing answer fades out quickly.
-const SEND: Transition = { type: "spring", visualDuration: 0.42, bounce: 0.28 };
-const SHIFT: Transition = { type: "spring", visualDuration: 0.4, bounce: 0.1 };
-const LEAVE: Transition = { duration: 0.16, ease: [0.4, 0, 1, 1] };
-const INSTANT: Transition = { duration: 0 };
+// The timings live in components/ui/motion.ts.
 
 // Arrow keys, Home and End move between questions.
 const KEY_STEPS: Record<string, (index: number, last: number) => number> = {

@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { Footer, Header, MailIcon } from "../components";
 import { BloomLogo, BLOOM_PATH } from "../../components/ui/bloom-logo";
 import { ScribbleText } from "../../components/ui/scribble-text";
-import { MarkerDemo, SendDemo, Swatch, WindowDemo } from "./demos";
+import { GlideDemo, MarkerDemo, SendDemo, Swatch, WindowDemo } from "./demos";
 import { RailToc, type TocItem } from "./rail-toc";
 import "../../components/ui/media-carousel.css";
 import "../../components/ui/project-window.css";
@@ -127,14 +127,13 @@ const radii = [
   { value: "999px", usage: "Pills, dots, avatars" },
 ];
 
+// Three tiers carry all UI motion (--dur-* in CSS, spring.* in motion.ts); the rest are named one-offs
 const durations = [
-  { ms: 120, name: "Instant", usage: "Window close icon" },
-  { ms: 150, name: "Micro", usage: "Hover colors, pill lift, underlines" },
-  { ms: 200, name: "Standard", usage: "Carousel dots and hints, FAQ question" },
-  { ms: 250, name: "Expand", usage: "Project window opening, clip progress" },
-  { ms: 350, name: "Playful", usage: "Photo cards lifting on About" },
-  { ms: 420, name: "Spring", usage: "FAQ answer popping in (Rare UI timing)" },
-  { ms: 500, name: "Delight", usage: "Bloom spin" },
+  { ms: 125, exit: 90, name: "Fast", token: "--dur-fast", usage: "Hover, focus, color changes, the gliding highlight" },
+  { ms: 200, exit: 150, name: "Moderate", token: "--dur-moderate", usage: "Short travel: the video crossfade" },
+  { ms: 275, exit: 200, name: "Slow", token: "--dur-slow", usage: "Large surfaces: the project window, photo cards" },
+  { ms: 420, name: "Send", usage: "FAQ answer popping in (Rare UI timing)" },
+  { ms: 500, name: "Bloom", usage: "The logo spin" },
   { ms: 700, name: "Draw", usage: "Marker sweep, scribble underline" },
 ];
 
@@ -329,7 +328,7 @@ export default function DesignSystem() {
           </Sub>
         </Section>
 
-        <Section id="motion" title="Motion" intro="UI moves fast and stays under 300ms. The more often you see something, the less it moves. Delight is saved for rare moments.">
+        <Section id="motion" title="Motion" intro="Three speeds carry all UI motion, all under 300ms: the bigger the thing that moves, the slower the tier, and exits are one step quicker than entrances. The more often you see something, the less it moves; delight is saved for rare moments.">
           <Sub id="animations" title="Animations" tag="core">
             <div className="ds-grid">
               <Specimen label="Bloom spin · hover it"><span className="ds-bloom-hover"><BloomLogo /></span></Specimen>
@@ -337,6 +336,7 @@ export default function DesignSystem() {
               <Specimen label="Marker sweep"><MarkerDemo /></Specimen>
               <Specimen label="Chat send · spring"><SendDemo /></Specimen>
               <Specimen label="Window open"><WindowDemo /></Specimen>
+              <Specimen label="Gliding hover · move across" wide><GlideDemo /></Specimen>
               <Specimen label="Breeze · ambient loop"><span className="ifg-label ds-breeze"><span>Some of my work</span></span></Specimen>
             </div>
           </Sub>
@@ -344,14 +344,15 @@ export default function DesignSystem() {
             <ul className="ds-durations">
               {durations.map((d) => (
                 <li key={d.ms}>
-                  <span className="ds-durations__name">{d.name}<small>{d.usage}</small></span>
+                  <span className="ds-durations__name">{d.name}{d.token && <code className="ds-durations__token">{d.token}{d.exit && ` · exit ${d.exit}ms`}</code>}<small>{d.usage}</small></span>
                   <span className="ds-durations__bar"><i style={{ width: `${(d.ms / 700) * 100}%` }} /></span>
                   <code>{d.ms}ms</code>
                 </li>
               ))}
             </ul>
             <ul className="ds-easings">
-              <li><code>cubic-bezier(.2,.8,.2,1)</code><span>Standard: quick out, soft landing</span></li>
+              <li><code>cubic-bezier(.2,.8,.2,1)</code><span>Standard (--ease): quick out, soft landing</span></li>
+              <li><code>cubic-bezier(.4,0,1,1)</code><span>Exit (--ease-exit): speeds up as it leaves</span></li>
               <li><code>cubic-bezier(.34,1.4,.64,1)</code><span>Overshoot: the Bloom spin</span></li>
               <li><code>cubic-bezier(.65,0,.25,1)</code><span>Draw: marker and scribble</span></li>
               <li><code>spring 0.42s, bounce 0.28</code><span>Send: chat answers</span></li>

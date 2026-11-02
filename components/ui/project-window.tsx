@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { FluidHoverHighlight, useFluidHover } from "./fluid-hover";
 import "./project-window.css";
 
 export type ProjectClip = { src: string; label: string; alt: string };
@@ -20,6 +21,9 @@ export function ProjectWindow({ project, open, start = 0, onClose }: { project: 
   const [clip, setClip] = useState(start);
   const [progress, setProgress] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
+  // The clips have gaps between them, so the nearest clip stays lit while the pointer crosses one
+  const clips = useRef<HTMLDivElement>(null);
+  const hover = useFluidHover(clips, { nearest: true, axis: "xy" });
 
   useEffect(() => { setReducedMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches); }, []);
 
@@ -70,9 +74,10 @@ export function ProjectWindow({ project, open, start = 0, onClose }: { project: 
                 onEnded={() => { if (!reducedMotion) show(clip + 1); }}
               />
             )}
-            <div className="pw__clips" role="tablist" aria-label="Videos">
+            <div className="pw__clips" role="tablist" aria-label="Videos" ref={clips} {...hover.handlers}>
+              <FluidHoverHighlight hover={hover} className="pw__hover" />
               {project.clips.map((c, i) => (
-                <button key={c.src} type="button" role="tab" aria-selected={i === clip} className="pw__clip" onClick={() => show(i)}>
+                <button key={c.src} ref={hover.register(i)} data-hovered={hover.active === i || undefined} type="button" role="tab" aria-selected={i === clip} className="pw__clip" onClick={() => show(i)}>
                   <span>{c.label}</span>
                   <span className="pw__clip-progress" aria-hidden="true" style={{ transform: `scaleX(${i === clip ? progress : i < clip ? 1 : 0})` }} />
                 </button>
