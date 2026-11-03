@@ -76,6 +76,15 @@ const projects: Project[] = [
     ],
   },
   {
+    title: "Seed catalogs, 1880–1930",
+    link: { href: "/seeds", label: "Browse the collection" },
+    media: [
+      { type: "image", src: "/media/work/seeds-1.webp", alt: "Seed catalogs archive: the title with a leafy branch, a timeline of catalogs per year, a contents list of plant types and a wall of stamped covers" },
+      { type: "image", src: "/media/work/seeds-2.webp", alt: "The wall of seed catalog covers with the 1918 Yokohama Nursery catalogue open in a side panel" },
+      { type: "image", src: "/media/work/seeds-3.webp", alt: "The full scan of the 1918 Yokohama Nursery catalogue cover, with pink double cherry blossoms" },
+    ],
+  },
+  {
     title: "Deel redesign",
     link: { href: "https://www.behance.net/gallery/236255871/Deel-Redesign", label: "See it on Behance", external: true },
     media: [
