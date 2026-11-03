@@ -2,6 +2,7 @@ import type { CSSProperties } from "react";
 import { Footer, Header } from "../components";
 import { CatDoodle, CoffeeSticker, MateSticker } from "./stickers";
 import { AboutFaq } from "./about-faq";
+import { GoldPaperclip } from "./paperclip";
 
 // x, y and w are measured on a 1100×640 canvas; the collage scales with the page.
 // Below 900px wide the items fall back to a wrapping row in array order.
@@ -34,14 +35,22 @@ function layoutStyle({ x, y, w, tilt, z }: Layout) {
 
 export default function About() {
   return <main><div className="page-shell"><Header />
-    <section className="about-intro">
-      <h1>Some things about me.</h1>
-      <p>Hi! I’m Rocío, a designer based in Buenos Aires, Argentina.</p>
+    <section className="about-intro about-intro--split">
+      <div className="about-intro__text">
+      <h1>About me</h1>
+      <p className="about-intro__meta"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 15s5-4.6 5-8.5a5 5 0 0 0-10 0C3 10.4 8 15 8 15Z" /><circle cx="8" cy="6.5" r="1.8" /></svg>Buenos Aires, Argentina</p>
       <p>I’m focused on practical, user-centered interfaces. I started learning front-end (HTML, CSS and a bit of JavaScript), which helps me design with implementation and handoff in mind. Over time I moved into product design and Figma, where I can iterate fast and solve interaction problems clearly—auto-layout and components are my favorite tools for that.</p>
-      <p>I completed several UX/UI certifications to learn as much as possible and find my place in design. I have 4+ years of experience working across freelance projects and teams in marketing, hospitality and HR. I’m excited to learn more about other industries.</p>
+      <p>I’ve spent 4+ years designing web and mobile products, most recently at Napsis, where I redesigned the navigation for 10,000+ users and built the design system the team ships with. Before that I designed event invitations and RSVPs at Janos Eventos, client products at KonstantKreative, and a lot of freelance work in between.</p>
+      </div>
+      <figure className="about-portrait">
+        <span className="about-portrait__clip"><GoldPaperclip /></span>
+        <div className="about-stamp__paper"><img src="/media/about/rocio.webp" alt="Rocío smiling, sitting in a café by the window" /></div>
+      </figure>
     </section>
-    <section className="about-faq-section" aria-label="Questions about me"><AboutFaq /></section>
-    <section className="about-collage" aria-label="Photos">
+    <section className="about-faq-section" aria-labelledby="about-faq-title"><h2 className="about-section-title" id="about-faq-title">FAQ</h2><AboutFaq /></section>
+    <section className="about-photos" aria-labelledby="about-photos-title">
+    <h2 className="about-section-title" id="about-photos-title">Bits and pieces</h2>
+    <div className="about-collage">
       {items.map((item, i) => {
         const style = layoutStyle(item);
         if (item.kind === "sticker") {
@@ -60,6 +69,7 @@ export default function About() {
           </figure>
         );
       })}
+    </div>
     </section>
     <Footer />
   </div></main>;

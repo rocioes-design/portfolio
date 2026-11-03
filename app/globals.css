@@ -2,6 +2,25 @@
 .about-intro{max-width:760px;margin:0 auto;padding:88px 0 0;text-align:center}
 .about-intro h1{margin:0 0 36px;font:400 44px/1.12 var(--font-averia-serif),"Iowan Old Style",serif;letter-spacing:.005em;color:var(--ink)}
 .about-intro p{margin:0 0 20px;color:var(--text);font:400 18px/1.65 var(--sans)}
+/* Section titles below the intro: FAQ and the photo collage */
+.about-section-title{margin:0 0 28px;color:var(--ink);font:400 32px/1.1 var(--font-averia-serif),"Iowan Old Style",serif}
+.about-faq-section{margin-top:96px!important}
+.about-photos{max-width:1100px;margin:112px auto 0}
+.about-photos .about-collage{padding-top:24px}
+.about-photos .about-section-title{max-width:760px;margin-left:auto;margin-right:auto}
+@media(min-width:900px){.about-photos .about-collage{margin-top:32px}}
+@media(max-width:700px){.about-section-title{font-size:26px;margin-bottom:20px}.about-faq-section{margin-top:64px!important}.about-photos{margin-top:72px}}
+/* Intro with a portrait: a stamp photo held by a gold paperclip, text beside it */
+/* The text starts on the same line as the FAQ column (760px, centered); the photo sits to its right */
+.about-intro--split{display:grid;grid-template-columns:minmax(0,1fr) 290px;align-items:center;gap:64px;max-width:none;padding:96px 0 0 max(0px,calc((100% - 760px) / 2));text-align:left}
+.about-intro--split h1{margin:0 0 14px}
+.about-intro__meta{display:flex;align-items:center;gap:8px;margin-bottom:24px!important;color:var(--subtle)!important;font-size:16px!important}
+.about-intro__meta svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linejoin:round}
+.about-portrait{position:relative;margin:0;filter:drop-shadow(0 10px 16px rgba(40,30,20,.16)) drop-shadow(0 1px 2px rgba(40,30,20,.12));transform:rotate(-3deg)}
+.about-portrait img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover}
+.about-portrait__clip{position:absolute;top:-34px;left:12%;z-index:2;width:32px;filter:drop-shadow(0 2px 1.5px rgba(80,50,10,.4)) drop-shadow(0 6px 6px rgba(80,50,10,.15));transform:rotate(-8deg)}
+.paperclip{display:block;width:100%;height:auto}
+@media(max-width:900px){.about-intro--split{grid-template-columns:1fr;gap:56px;max-width:760px;padding:72px 0 0}.about-portrait{order:-1;width:240px;margin:0 auto}}
 .about-collage{position:relative;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:28px 0;max-width:960px;margin:0 auto;padding:80px 0 24px}
 .about-card{--card-w:calc(var(--w)*1px);position:relative;z-index:var(--z,1);width:var(--card-w);margin:0 -10px;filter:drop-shadow(0 8px 14px rgba(40,30,20,.16)) drop-shadow(0 1px 2px rgba(40,30,20,.12));transform:rotate(var(--tilt));transition:transform var(--dur-slow) var(--ease)}
 .about-card:hover{z-index:20;transform:translateY(-6px) rotate(0) scale(1.04)}
