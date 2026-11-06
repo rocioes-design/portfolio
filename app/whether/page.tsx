@@ -22,7 +22,7 @@ const media = (f: string) => `/media/whether/${f}`;
 const meta = [
   ["Project", "Self-initiated, real product"],
   ["Role", "Product designer & builder"],
-  ["Platform", "iPhone and Android"],
+  ["Platform", "Android"],
   ["Year", "2026"],
   ["Disciplines", "Research · UX/UI · Brand · Mascot"],
 ];
@@ -89,6 +89,25 @@ function Phone({ src, alt, className = "", top = "#FEFDF7", dark = false, inset 
   </figure>;
 }
 
+// The four-color Google Play triangle for the store button, cut to a soft-cornered outline.
+function PlayMark() {
+  return <svg className="wh-store__mark" viewBox="0 0 24 26" aria-hidden="true">
+    <defs>
+      <clipPath id="wh-play-shape"><path d="M2 2.4C2 1 3.4.3 4.6 1l17.6 10.4c1.2.7 1.2 2.5 0 3.2L4.6 25C3.4 25.7 2 25 2 23.6Z" /></clipPath>
+      <linearGradient id="wh-play-blue" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#00A0FF" /><stop offset="1" stopColor="#00E3FF" /></linearGradient>
+      <linearGradient id="wh-play-green" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#32A071" /><stop offset="1" stopColor="#00F076" /></linearGradient>
+      <linearGradient id="wh-play-yellow" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#FFE000" /><stop offset="1" stopColor="#FFBD00" /></linearGradient>
+      <linearGradient id="wh-play-red" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#FF3A44" /><stop offset="1" stopColor="#C31162" /></linearGradient>
+    </defs>
+    <g clipPath="url(#wh-play-shape)">
+      <path d="M0 0L14 13 0 26Z" fill="url(#wh-play-blue)" />
+      <path d="M0 0H6L18 9.3 14 13Z" fill="url(#wh-play-green)" />
+      <path d="M0 26H6L18 16.7 14 13Z" fill="url(#wh-play-red)" />
+      <path d="M18 9.3L24 13 18 16.7 14 13Z" fill="url(#wh-play-yellow)" />
+    </g>
+  </svg>;
+}
+
 export default function WhetherPage() {
   return <main className={`wh ${nunito.variable}`}>
     <div className="page-shell"><Header /></div>
@@ -102,6 +121,7 @@ export default function WhetherPage() {
           <p className="wh-kicker">Case study · 2026</p>
           <h1 id="wh-title">Whether</h1>
           <p className="wh-hero__tag">What to wear, whatever the weather.</p>
+          <a className="wh-store" href="https://play.google.com/store/apps/details?id=com.rocioes.whether" target="_blank" rel="noreferrer"><PlayMark /><span className="wh-store__text"><small>Get it on</small><b>Google Play</b></span></a>
         </div>
       </div>
     </section>
@@ -275,15 +295,15 @@ export default function WhetherPage() {
       </div>
     </section>
 
-    {/* NIGHT: coming soon */}
+    {/* NIGHT: what's next */}
     <section className="wh-panel wh-night" aria-labelledby="soon-title">
       <WeatherFx kind="night" seed={41} />
       <div className="wh-wide">
         <p className="wh-kicker">06 · What’s next</p>
-        <h2 id="soon-title" className="wh-h1">Coming soon<br />to your phone.</h2>
-        <p className="wh-big">Whether is currently in development, powered by Open-Meteo’s free weather data.</p>
+        <h2 id="soon-title" className="wh-h1">Now on<br />Android.</h2>
+        <p className="wh-big">Whether is available on Google Play, powered by Open-Meteo’s free weather data.</p>
         <p className="wh-big">The home-screen widget brings the day’s outfit recommendation at a glance, without needing to open the app.</p>
-        <p className="wh-big">After launch, this section will include the production build, user testing results, and key learnings.</p>
+        <p className="wh-big">Next, this section will include user testing results and key learnings.</p>
         <div className="wh-widgets">
           <img src={shot("widget-small")} alt="Small widget: 9°, layers today, jacket off by 1:00pm" loading="lazy" />
           <img src={shot("widget-medium")} alt="Medium widget: wear layers, jacket off by lunch, with the day strip" loading="lazy" />

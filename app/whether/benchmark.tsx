@@ -18,7 +18,7 @@ const apps: { id: string; name: string; kind: Kind; x: number; y: number; meta: 
   { id: "dailydress", name: "Daily Dress Me", kind: "weather", x: 12, y: 22, meta: "iOS + Android · free", take: "Outfit ideas from the forecast, and you can switch cities for a trip. Running since 2014." },
   { id: "thewear", name: "TheWear & co.", kind: "weather", x: 30, y: 10, meta: "iOS · free", take: "Simple rules based on the temperature. Low ratings, around 2.5★." },
   { id: "goldilocks", name: "Goldilocks Run Club", kind: "niche", x: 28, y: 54, meta: "iOS · for runners", take: "The only app that learns: if you felt too cold last time, it adjusts the next suggestion. But only for runs." },
-  { id: "whether", name: "Whether", kind: "us", x: 20, y: 81, meta: "iPhone + Android", take: "Instant like a weather app, personal like a closet app, with no closet to photograph. One tap a day teaches it how you feel the weather." },
+  { id: "whether", name: "Whether", kind: "us", x: 20, y: 81, meta: "Android", take: "Instant like a weather app, personal like a closet app, with no closet to photograph. One tap a day teaches it how you feel the weather." },
 ];
 
 // ● yes · ◐ partly · ○ no · – not found in the benchmark

@@ -21,6 +21,14 @@
 .wh-hero__drip{order:2;max-width:none!important;width:clamp(220px,32vw,460px);margin:0 -40px -70px 0;animation:wh-bob 4s ease-in-out infinite;filter:drop-shadow(0 18px 24px rgba(160,110,0,.25))}
 .wh-hero h1{font:900 clamp(76px,17vw,240px)/.82 var(--f);letter-spacing:-.05em;margin-left:-.04em}
 .wh-hero__tag{font:800 clamp(22px,3vw,40px)/1.15 var(--f)!important;margin:18px 0 0!important}
+/* Play Store button: a white card with the Google Play mark, lifted off the hero by a soft shadow */
+.wh-store{display:inline-flex;align-items:center;gap:12px;margin-top:24px;padding:11px 24px 11px 18px;border-radius:16px;background:#fff;color:#202124;text-decoration:none;white-space:nowrap;box-shadow:0 1px 2px rgba(90,60,0,.14),0 10px 20px -8px rgba(90,60,0,.38);transition:box-shadow var(--dur-fast)}
+.wh-store:hover{box-shadow:0 1px 2px rgba(90,60,0,.16),0 14px 26px -8px rgba(90,60,0,.5)}
+.wh-store:focus-visible{outline:2px solid var(--dark);outline-offset:3px}
+.wh-store__mark{flex:none;width:28px;height:30px}
+.wh-store__text{display:flex;flex-direction:column;gap:3px}
+.wh-store__text small{color:#5f6368;font:700 11px/1 var(--f);letter-spacing:.04em;text-transform:uppercase}
+.wh-store__text b{font:700 20px/1 var(--f);letter-spacing:-.01em}
 @keyframes wh-bob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-14px) rotate(3deg)}}
 
 /* Meta strip, like a credits block */
