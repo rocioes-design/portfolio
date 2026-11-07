@@ -13,7 +13,7 @@ export function Showcase({ id, title, media, project }: { id: string; title: str
     <>
       <header className="work-project__header">
         <h2 id={id}>{title}</h2>
-        <button type="button" className="work-project__open" onClick={() => openAt(0)} aria-haspopup="dialog">
+        <button type="button" className="work-project__open" onClick={() => openAt(0)} aria-haspopup="dialog" aria-label={`View project: ${title}`}>
           <ScribbleText>View project</ScribbleText> <span aria-hidden="true">↗</span>
         </button>
       </header>

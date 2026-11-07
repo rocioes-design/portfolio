@@ -1,8 +1,14 @@
+import type { Metadata } from "next";
 import { Footer, Header } from "../components";
 import { MediaCarousel, type CarouselMedia } from "../../components/ui/media-carousel";
 import type { ProjectWindowData } from "../../components/ui/project-window";
 import { ScribbleText } from "../../components/ui/scribble-text";
 import { Showcase } from "./showcase";
+
+export const metadata: Metadata = {
+  title: "Work — Rocío Espinosa",
+  description: "Personal projects by Rocío Espinosa, with case studies, prototypes and design systems.",
+};
 
 // Set `hidden: true` to take a project off the page without deleting it.
 // A project with `window` opens in a project window ("View project") instead of linking out.
@@ -97,10 +103,11 @@ const projects: Project[] = [
 const slug = (title: string) => `work-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
 
 export default function Work() {
-  return <main><div className="page-shell"><Header />
+  return <div className="page-shell"><Header />
+    <main>
     <section className="work-intro">
       <h1><img src="/media/work/pen.svg" alt="" /><span>Work</span><img src="/media/work/hot-beverage.svg" alt="" /></h1>
-      <p>Due to confidentiality agreements, I can’t publicly share my professional work, so this page features personal projects that showcase my design process and skills.</p>
+      <p>My client work at Napsis and Janos Eventos is under NDA, so here are personal projects made with the same process: research, iteration and a design system behind every screen.</p>
     </section>
     <div className="work-projects">
       {projects.filter((project) => !project.hidden).map((project) => (
@@ -109,7 +116,7 @@ export default function Work() {
           <header className="work-project__header">
             <h2 id={slug(project.title)}>{project.title}</h2>
             {project.link && (
-              <a href={project.link.href} {...(project.link.external ? { target: "_blank", rel: "noreferrer" } : {})}>
+              <a href={project.link.href} aria-label={`${project.link.label}: ${project.title}`} {...(project.link.external ? { target: "_blank", rel: "noreferrer" } : {})}>
                 <ScribbleText>{project.link.label}</ScribbleText> <span aria-hidden="true">↗</span>
               </a>
             )}
@@ -119,6 +126,7 @@ export default function Work() {
         </section>
       ))}
     </div>
+    </main>
     <Footer />
-  </div></main>;
+  </div>;
 }

@@ -1,8 +1,14 @@
 import type { CSSProperties } from "react";
+import type { Metadata } from "next";
 import { Footer, Header } from "../components";
 import { CatDoodle, CoffeeSticker, MateSticker } from "./stickers";
 import { AboutFaq } from "./about-faq";
 import { GoldPaperclip } from "./paperclip";
+
+export const metadata: Metadata = {
+  title: "About — Rocío Espinosa",
+  description: "Rocío Espinosa, a product designer based in Buenos Aires, Argentina.",
+};
 
 // x, y and w are measured on a 1100×640 canvas; the collage scales with the page.
 // Below 900px wide the items fall back to a wrapping row in array order.
@@ -34,7 +40,8 @@ function layoutStyle({ x, y, w, tilt, z }: Layout) {
 }
 
 export default function About() {
-  return <main><div className="page-shell"><Header />
+  return <div className="page-shell"><Header />
+    <main>
     <section className="about-intro about-intro--split">
       <div className="about-intro__text">
       <h1>About me</h1>
@@ -71,6 +78,7 @@ export default function About() {
       })}
     </div>
     </section>
+    </main>
     <Footer />
-  </div></main>;
+  </div>;
 }

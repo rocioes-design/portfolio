@@ -4,7 +4,7 @@ import { Footer, Header, MailIcon } from "../components";
 import { BloomLogo, BLOOM_PATH } from "../../components/ui/bloom-logo";
 import { ScribbleText } from "../../components/ui/scribble-text";
 import { GlideDemo, MarkerDemo, SendDemo, Swatch, WindowDemo } from "./demos";
-import { RailToc, type TocItem } from "./rail-toc";
+import { MobileToc, RailToc, type TocItem } from "./rail-toc";
 import "../../components/ui/media-carousel.css";
 import "../../components/ui/project-window.css";
 import "../../components/ui/interactive-folder-gallery.css";
@@ -93,8 +93,7 @@ function Bloom({ className }: { className?: string }) {
 const neutrals = [
   { name: "Ink", token: "ink", hex: "#181818", usage: "Headings, nav, the signature" },
   { name: "Text", token: "text", hex: "#2b2b2b", usage: "Body copy, captions, button labels" },
-  { name: "Muted", token: "muted", hex: "#6b6b6b", usage: "Secondary text, project links, footer" },
-  { name: "Subtle", token: "subtle", hex: "#767676", usage: "Small labels, fact titles" },
+  { name: "Muted", token: "muted", hex: "#6b6b6b", usage: "Secondary text, labels, placeholders, footer" },
   { name: "Line strong", token: "line-strong", hex: "#d6d4ce", usage: "Dots, window lights, selected outlines" },
   { name: "Line", token: "line", hex: "#dfdeda", usage: "Header and window borders" },
   { name: "Line soft", token: "line-soft", hex: "#e8e7e3", usage: "Dividers inside windows, clip borders" },
@@ -157,22 +156,26 @@ const widths = [
 ];
 
 const typeScale = [
-  { name: "Display", sample: "Design System", css: "400 44px/1.12 Averia Serif Libre", className: "ds-type--display", usage: "Page titles · 30px on phones" },
-  { name: "Title", sample: "Daywell", css: "400 32px/1.1 Averia Serif Libre", className: "ds-type--title", usage: "Project window, footer links" },
-  { name: "Heading", sample: "Whether", css: "600 22px/1.3 Segoe UI", className: "ds-type--heading", usage: "Work project names" },
-  { name: "Lead", sample: "I’m focused on practical, user-centered interfaces.", css: "400 18px/1.65 Segoe UI", className: "ds-type--lead", usage: "Page intros" },
-  { name: "Body", sample: "A time-off tool for small teams.", css: "400 16px/1.6 Segoe UI", className: "ds-type--body", usage: "Descriptions" },
-  { name: "UI", sample: "What tools do you use?", css: "400 15px/1.4 Segoe UI, −0.01em", className: "ds-type--ui", usage: "Bubbles, links, captions" },
-  { name: "Label", sample: "HOME   ABOUT   WORK", css: "600 13px Segoe UI, 0.06em, uppercase", className: "ds-type--label", usage: "Header nav" },
-  { name: "Code", sample: "roles-permissions.tsx", css: "400 11px monospace, 0.02em", className: "ds-type--code", usage: "File names, domains" },
+  { name: "Display", sample: "Design System", css: "--text-display · 44px/1.12 Averia Serif Libre", className: "ds-type--display", usage: "Page titles · 30px on phones" },
+  { name: "Title", sample: "Daywell", css: "--text-title · 32px/1.1 Averia Serif Libre", className: "ds-type--title", usage: "Section titles, project window, footer links · 26px on phones" },
+  { name: "Heading", sample: "Whether", css: "--text-heading · 600 22px/1.3 Segoe UI", className: "ds-type--heading", usage: "Work project names" },
+  { name: "Lead", sample: "I’m focused on practical, user-centered interfaces.", css: "--text-lead · 18px/1.65 Segoe UI", className: "ds-type--lead", usage: "Page intros" },
+  { name: "Body", sample: "A time-off tool for small teams.", css: "--text-body · 16px/1.6 Segoe UI", className: "ds-type--body", usage: "Descriptions" },
+  { name: "UI", sample: "What tools do you use?", css: "--text-ui · 15px/1.4 Segoe UI, −0.01em", className: "ds-type--ui", usage: "Bubbles, links, captions" },
+  { name: "Small", sample: "Role  Product Designer", css: "--text-small · 14px/1.4 Segoe UI", className: "ds-type--small", usage: "Sidebars, facts, footer" },
+  { name: "Label", sample: "HOME   ABOUT   WORK", css: "--text-label · 600 13px Segoe UI, 0.06em, uppercase", className: "ds-type--label", usage: "Header nav" },
+  { name: "Caption", sample: "Core", css: "--text-caption · 500 12px Segoe UI", className: "ds-type--caption", usage: "Tags, small buttons, code values" },
+  { name: "Code", sample: "roles-permissions.tsx", css: "--text-micro · 11px monospace, 0.02em", className: "ds-type--code", usage: "File names, domains" },
 ];
 
 export default function DesignSystem() {
-  return <main><div className="page-shell"><Header />
+  return <div className="page-shell"><Header />
+    <main>
     <div className="ds-layout">
       <aside className="ds-aside"><RailToc items={toc} /></aside>
 
       <article className="ds-content">
+        <MobileToc items={toc} />
         <header className="ds-hero" id="overview">
           <h1>Design System</h1>
           <p className="ds-hero__sub">Rocío Espinosa’s portfolio</p>
@@ -204,7 +207,7 @@ export default function DesignSystem() {
         <Section id="components" title="Components" intro="Small set, used everywhere.">
           <Sub id="buttons" title="Buttons" tag="core">
             <div className="ds-grid">
-              <Specimen label="Pill · white, raised"><a className="pill-button" href="#buttons"><MailIcon gradientId="ds-mail" />E-mail</a></Specimen>
+              <Specimen label="Pill · white, raised"><a className="pill-button" href="#buttons"><MailIcon gradientId="ds-mail" />Email</a></Specimen>
               <Specimen label="Pill · dark"><a className="pw__link" href="#buttons">Try the prototype <span aria-hidden="true">↗</span></a></Specimen>
               <Specimen label="Text link · scribble on hover"><a className="ds-text-link" href="#buttons"><ScribbleText>Read the case study</ScribbleText> <span aria-hidden="true">↗</span></a></Specimen>
               <Specimen label="Icon · round, floating">
@@ -264,8 +267,8 @@ export default function DesignSystem() {
 
           <Sub id="navigation" title="Navigation" tag="core">
             <div className="ds-grid">
-              <Specimen label="Header tabs" wide>
-                <div className="ds-nav-demo"><span>Home</span><span>About</span><span className="is-current">Work</span><span>Sketches</span></div>
+              <Specimen label="Header tabs · the scribble marks the current page" wide>
+                <div className="ds-nav-demo"><span>Home</span><span>About</span><span className="is-current"><ScribbleText>Work</ScribbleText></span><span>Sketches</span></div>
               </Specimen>
               <Specimen label="Footer links · scribble">
                 <nav className="ds-footer-links" aria-label="Example"><a href="#navigation"><ScribbleText>About</ScribbleText></a><a href="#navigation"><ScribbleText>Work</ScribbleText></a></nav>
@@ -313,7 +316,7 @@ export default function DesignSystem() {
           </Sub>
           <Sub id="focus" title="Focus states" tag="core" note="2px pink outline, 2px away from the edge. Media gets it inset so it isn’t clipped.">
             <div className="ds-row">
-              <a className="pill-button ds-focus" href="#focus" tabIndex={-1}><MailIcon gradientId="ds-mail-3" />E-mail</a>
+              <a className="pill-button ds-focus" href="#focus" tabIndex={-1}><MailIcon gradientId="ds-mail-3" />Email</a>
               <span className="ds-focus-link">Read the case study</span>
               <span className="ds-focus-inset">Media</span>
             </div>
@@ -414,6 +417,7 @@ export default function DesignSystem() {
         </Section>
       </article>
     </div>
+    </main>
     <Footer />
-  </div></main>;
+  </div>;
 }

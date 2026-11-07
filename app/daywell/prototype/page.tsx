@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-inter" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export default function DaywellPrototypePage() {
   return <div className={inter.variable}><DaywellPrototype /></div>;

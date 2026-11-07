@@ -49,6 +49,23 @@ function lengthAtY(path: SVGPathElement, total: number, y: number) {
   return hi;
 }
 
+// On small screens the rail is hidden, so a compact menu stays pinned at the top instead
+export function MobileToc({ items }: { items: TocItem[] }) {
+  const menu = useRef<HTMLDetailsElement>(null);
+  return (
+    <details className="ds-mobile-toc" ref={menu}>
+      <summary>On this page</summary>
+      <ul>
+        {items.map((item) => (
+          <li key={item.id}>
+            <a href={`#${item.id}`} style={{ paddingLeft: (item.depth ?? 0) * INDENT }} onClick={() => { if (menu.current) menu.current.open = false; }}>{item.label}</a>
+          </li>
+        ))}
+      </ul>
+    </details>
+  );
+}
+
 export function RailToc({ items, title = "Overview" }: { items: TocItem[]; title?: string }) {
   const reduced = useReducedMotion() ?? false;
   const list = useRef<HTMLUListElement>(null);

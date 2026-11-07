@@ -25,7 +25,8 @@ const sketches: Sketch[] = [
 ];
 
 export default function Sketches() {
-  return <main><div className="page-shell"><Header />
+  return <div className="page-shell"><Header />
+    <main>
     <section className="work-intro">
       <div className="paper-note"><span>Under construction</span></div>
       <h1><img src="/media/sketches/pencil.svg" alt="" /><span>Sketches</span><img src="/media/sketches/artist-palette.svg" alt="" /></h1>
@@ -34,6 +35,7 @@ export default function Sketches() {
     <div className="sketches-grid">
       {sketches.map((sketch) => <SketchWindow key={sketch.file} sketch={sketch} />)}
     </div>
+    </main>
     <Footer />
-  </div></main>;
+  </div>;
 }

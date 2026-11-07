@@ -10,7 +10,7 @@ import "./loopline.css";
 
 export const metadata = { title: "Loopline case study — Rocío Espinosa" };
 
-const inter = Inter({ subsets: ["latin"], weight: ["400", "600", "700"], variable: "--font-inter" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 const index = [
   { label: "01 Context", items: [["overview", "1.1", "Overview"], ["problem", "1.2", "Problem statement"]] },

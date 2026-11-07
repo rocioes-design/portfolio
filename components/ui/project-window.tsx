@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { FluidHoverHighlight, useFluidHover } from "./fluid-hover";
+import { VideoToggle } from "./video-toggle";
 import "./project-window.css";
 
 export type ProjectClip = { src: string; label: string; alt: string };
@@ -21,6 +22,8 @@ export function ProjectWindow({ project, open, start = 0, onClose }: { project: 
   const [clip, setClip] = useState(start);
   const [progress, setProgress] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [paused, setPaused] = useState(false);
+  const video = useRef<HTMLVideoElement>(null);
   // The clips have gaps between them, so the nearest clip stays lit while the pointer crosses one
   const clips = useRef<HTMLDivElement>(null);
   const hover = useFluidHover(clips, { nearest: true, axis: "xy" });
@@ -32,6 +35,7 @@ export function ProjectWindow({ project, open, start = 0, onClose }: { project: 
     if (open) {
       setClip(start);
       setProgress(0);
+      setPaused(false);
       dialog.current?.showModal();
       root.style.overflow = "hidden";
     } else {
@@ -42,7 +46,12 @@ export function ProjectWindow({ project, open, start = 0, onClose }: { project: 
   }, [open, start]);
 
   const current = project.clips[clip];
-  const show = (i: number) => { setClip((i + project.clips.length) % project.clips.length); setProgress(0); };
+  const show = (i: number) => { setClip((i + project.clips.length) % project.clips.length); setProgress(0); setPaused(false); };
+  const togglePaused = () => {
+    if (paused) video.current?.play().catch(() => {});
+    else video.current?.pause();
+    setPaused(!paused);
+  };
 
   return (
     <dialog
@@ -67,17 +76,20 @@ export function ProjectWindow({ project, open, start = 0, onClose }: { project: 
         <div className="pw__body">
           <div className="pw__stage">
             {open && current && (
+              <div className="pw__player">
               <video
-                key={current.src} className="pw__video" src={current.src} aria-label={current.alt}
+                ref={video} key={current.src} className="pw__video" src={current.src} aria-label={current.alt}
                 muted playsInline autoPlay={!reducedMotion} controls={reducedMotion} preload="auto"
                 onTimeUpdate={(e) => { const v = e.currentTarget; if (v.duration) setProgress(v.currentTime / v.duration); }}
                 onEnded={() => { if (!reducedMotion) show(clip + 1); }}
               />
+              {!reducedMotion && <VideoToggle paused={paused} onToggle={togglePaused} />}
+              </div>
             )}
-            <div className="pw__clips" role="tablist" aria-label="Videos" ref={clips} {...hover.handlers}>
+            <div className="pw__clips" role="group" aria-label="Videos" ref={clips} {...hover.handlers}>
               <FluidHoverHighlight hover={hover} className="pw__hover" />
               {project.clips.map((c, i) => (
-                <button key={c.src} ref={hover.register(i)} data-hovered={hover.active === i || undefined} type="button" role="tab" aria-selected={i === clip} className="pw__clip" onClick={() => show(i)}>
+                <button key={c.src} ref={hover.register(i)} data-hovered={hover.active === i || undefined} type="button" aria-pressed={i === clip} className="pw__clip" onClick={() => show(i)}>
                   <span>{c.label}</span>
                   <span className="pw__clip-progress" aria-hidden="true" style={{ transform: `scaleX(${i === clip ? progress : i < clip ? 1 : 0})` }} />
                 </button>

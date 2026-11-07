@@ -9,7 +9,7 @@ const items = [
   {
     value: "main-thing",
     title: "What is your skill set / what is your “main thing”?",
-    content: <p>I’d say my main thing is Product/interaction design. But I also enjoy illustrating and Motion Design.</p>,
+    content: <p>I’d say my main thing is product/interaction design. But I also enjoy illustrating and motion design.</p>,
   },
   {
     value: "tools",
@@ -19,12 +19,12 @@ const items = [
   {
     value: "learning",
     title: "How did you learn how to design?",
-    content: <p>I completed various Design courses/certifications, but what best worked for me was trial and error, YouTube and google search. Design is what I’m most excited about, so that helped a lot too.</p>,
+    content: <p>I completed various design courses/certifications, but what best worked for me was trial and error, YouTube and Google search. Design is what I’m most excited about, so that helped a lot too.</p>,
   },
   {
     value: "future",
     title: "Where do you see yourself in the future?",
-    content: <p>I wish I knew! Hopefully, still designing and learning. I’m always thinking about side projects and freelancing, but I also enjoy the steadiness of a full time job.</p>,
+    content: <p>I wish I knew! Hopefully, still designing and learning. I’m always thinking about side projects and freelancing, but I also enjoy the steadiness of a full-time job.</p>,
   },
   {
     value: "freelance",

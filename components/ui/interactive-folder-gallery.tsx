@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import "./interactive-folder-gallery.css";
@@ -29,7 +29,7 @@ export interface InteractiveFolderGalleryProps {
 // Open layout: one row on wide screens, a 2-column grid on phones.
 // Card sizes live in the CSS; keep these in sync with it.
 const ROW = { cardWidth: 232, gap: 16, y: -150, sidePadding: 48 };
-const GRID = { cardWidth: 160, cardHeight: 118, gap: 12, y: -110 };
+const GRID = { cardWidth: 160, cardHeight: 118, gap: 12, y: -110, sidePadding: 0 };
 
 function useCompactLayout() {
   const [isCompact, setIsCompact] = useState(false);
@@ -43,23 +43,22 @@ function useCompactLayout() {
   return isCompact;
 }
 
-// Shrinks the open row so it always fits the available width (no clipping needed).
-function useRowScale(ref: React.RefObject<HTMLDivElement | null>, count: number) {
+// Shrinks the open layout so it always fits the available width (no clipping needed).
+function useFitScale(ref: React.RefObject<HTMLDivElement | null>, contentWidth: number, sidePadding: number) {
   const [scale, setScale] = useState(1);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const rowWidth = count * ROW.cardWidth + (count - 1) * ROW.gap;
     const observer = new ResizeObserver(([entry]) => {
-      setScale(Math.min(1, (entry.contentRect.width - ROW.sidePadding) / rowWidth));
+      setScale(Math.min(1, (entry.contentRect.width - sidePadding) / contentWidth));
     });
     observer.observe(el);
     return () => observer.disconnect();
-  }, [ref, count]);
+  }, [ref, contentWidth, sidePadding]);
   return scale;
 }
 
-function openPosition(i: number, count: number, isCompact: boolean, rowScale: number) {
+function openPosition(i: number, count: number, isCompact: boolean, rowScale: number, gridScale: number) {
   if (!isCompact) {
     return { x: (i - (count - 1) / 2) * (ROW.cardWidth + ROW.gap) * rowScale, y: ROW.y };
   }
@@ -68,8 +67,8 @@ function openPosition(i: number, count: number, isCompact: boolean, rowScale: nu
   const isLoneLast = i === count - 1 && count % 2 === 1;
   const col = i % 2;
   return {
-    x: isLoneLast ? 0 : (col - 0.5) * (GRID.cardWidth + GRID.gap),
-    y: GRID.y - (rows - 1 - row) * (GRID.cardHeight + GRID.gap),
+    x: isLoneLast ? 0 : (col - 0.5) * (GRID.cardWidth + GRID.gap) * gridScale,
+    y: GRID.y - (rows - 1 - row) * (GRID.cardHeight + GRID.gap) * gridScale,
   };
 }
 
@@ -83,18 +82,27 @@ export function InteractiveFolderGallery({
   const [hoverFolder, setHoverFolder] = useState(false);
   const isCompact = useCompactLayout();
   const rootRef = useRef<HTMLDivElement>(null);
-  const rowScale = useRowScale(rootRef, photos.length);
+  const rowScale = useFitScale(rootRef, photos.length * ROW.cardWidth + (photos.length - 1) * ROW.gap, ROW.sidePadding);
+  const gridScale = useFitScale(rootRef, 2 * GRID.cardWidth + GRID.gap, GRID.sidePadding);
   const draggedRef = useRef(false);
   const firstPhotoRef = useRef<HTMLElement | null>(null);
+  const frontRef = useRef<HTMLDivElement>(null);
+
+  // Focus moves back to the folder first, so it never stays on a photo that is about to be hidden
+  const closeFolder = useCallback(() => {
+    setHoverFolder(false);
+    if (rootRef.current?.contains(document.activeElement)) frontRef.current?.focus();
+    setIsFolderOpen(false);
+  }, []);
 
   useEffect(() => {
     if (!isFolderOpen) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") { setIsFolderOpen(false); setHoverFolder(false); }
+      if (e.key === "Escape") closeFolder();
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [isFolderOpen]);
+  }, [isFolderOpen, closeFolder]);
 
   const openFolder = (fromKeyboard: boolean) => {
     setIsFolderOpen(true);
@@ -126,9 +134,9 @@ export function InteractiveFolderGallery({
               const stackRotate = hoverFolder ? offset * 8 : offset * 3;
               const stackScale = 1 - Math.abs(offset) * 0.03;
 
-              const { x: openX, y: openY } = openPosition(i, photos.length, isCompact, rowScale);
+              const { x: openX, y: openY } = openPosition(i, photos.length, isCompact, rowScale, gridScale);
               const openRotate = 0;
-              const openScale = isCompact ? 1 : rowScale;
+              const openScale = isCompact ? gridScale : rowScale;
 
               const image = <img src={photo.image} alt={photo.alt || "Gallery item"} draggable={false} />;
 
@@ -140,10 +148,7 @@ export function InteractiveFolderGallery({
                   onDragStart={() => { draggedRef.current = true; }}
                   onDragEnd={(e, info) => {
                     setTimeout(() => { draggedRef.current = false; }, 50);
-                    if (info.offset.y > 100 && isFolderOpen) {
-                      setIsFolderOpen(false);
-                      setHoverFolder(false);
-                    }
+                    if (info.offset.y > 100 && isFolderOpen) closeFolder();
                   }}
                   className={`ifg-photo ${isFolderOpen ? "is-open" : ""}`}
                   initial={false}
@@ -182,6 +187,7 @@ export function InteractiveFolderGallery({
           </div>
 
           <motion.div
+            ref={frontRef}
             className="ifg-front"
             style={{ transformOrigin: "bottom" }}
             initial={false}
@@ -197,7 +203,7 @@ export function InteractiveFolderGallery({
             aria-label={`${folderName}: open folder`}
             onMouseEnter={() => setHoverFolder(true)}
             onMouseLeave={() => setHoverFolder(false)}
-            onFocus={() => setHoverFolder(true)}
+            onFocus={(e) => { if (e.currentTarget.matches(":focus-visible")) setHoverFolder(true); }}
             onBlur={() => setHoverFolder(false)}
             onClick={() => openFolder(false)}
             onKeyDown={(e) => {
@@ -214,11 +220,12 @@ export function InteractiveFolderGallery({
         </div>
 
         <motion.div
-          className="ifg-hint"
+          className="ifg-actions"
           initial={false}
           animate={{ opacity: isFolderOpen ? 1 : 0, y: isFolderOpen ? 0 : 50 }}
         >
-          {dragHintText}
+          <span className="ifg-hint">{dragHintText}</span>
+          {isFolderOpen && <button type="button" className="ifg-close" onClick={closeFolder}>Close</button>}
         </motion.div>
 
       </div>

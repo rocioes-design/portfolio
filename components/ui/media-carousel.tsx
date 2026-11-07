@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { VideoToggle } from "./video-toggle";
 import "./media-carousel.css";
 
 export type CarouselMedia = { type: "image" | "video"; src: string; alt: string };
@@ -14,6 +15,8 @@ export function MediaCarousel({ media, label, aspectRatio, onSelect, selectLabel
   const trackRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
   const [reducedMotion, setReducedMotion] = useState(false);
+  const [paused, setPaused] = useState(false);
+  const pausedRef = useRef(false); // read by the observer, which outlives each render
 
   useEffect(() => {
     setReducedMotion(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
@@ -33,7 +36,7 @@ export function MediaCarousel({ media, label, aspectRatio, onSelect, selectLabel
     const observer = new IntersectionObserver(
       (entries) => entries.forEach(({ target, isIntersecting }) => {
         const video = target as HTMLVideoElement;
-        if (isIntersecting) video.play().catch(() => {});
+        if (isIntersecting && !pausedRef.current) video.play().catch(() => {});
         else video.pause();
       }),
       { threshold: 0.6 },
@@ -41,6 +44,15 @@ export function MediaCarousel({ media, label, aspectRatio, onSelect, selectLabel
     track.querySelectorAll("video").forEach((video) => observer.observe(video));
     return () => observer.disconnect();
   }, [reducedMotion]);
+
+  const togglePaused = () => {
+    const next = !pausedRef.current;
+    pausedRef.current = next;
+    setPaused(next);
+    const track = trackRef.current;
+    if (next) track?.querySelectorAll("video").forEach((video) => video.pause());
+    else track?.children[index]?.querySelector("video")?.play().catch(() => {});
+  };
 
   const goTo = (i: number) => {
     const track = trackRef.current;
@@ -63,6 +75,7 @@ export function MediaCarousel({ media, label, aspectRatio, onSelect, selectLabel
           </div>
         ))}
       </div>
+      {media[index]?.type === "video" && !reducedMotion && <VideoToggle paused={paused} onToggle={togglePaused} />}
       {media.length > 1 && <>
         <button className="media-carousel__arrow media-carousel__arrow--prev" onClick={() => goTo(index - 1)} disabled={index === 0} aria-label="Previous slide">
           <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5" /></svg>

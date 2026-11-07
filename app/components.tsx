@@ -5,8 +5,9 @@ import { ScribbleText } from "../components/ui/scribble-text";
 import { SignatureReveal } from "../components/ui/signature-reveal";
 
 export function Header() {
-  return (
+  return (<>
     <header className="site-header">
+      <a className="skip-link" href="#content">Skip to content</a>
       {/* The Bloom opens the design system; the name goes home */}
       <div className="identity">
         <Link className="identity__logo" href="/design-system" aria-label="Design system" title="Design system">
@@ -19,7 +20,8 @@ export function Header() {
       </div>
       <NavLinks />
     </header>
-  );
+    <div id="content" tabIndex={-1} />
+  </>);
 }
 
 export function MailIcon({ gradientId }: { gradientId: string }) {
@@ -36,7 +38,7 @@ export function Footer() {
       <div className="footer-contact">
         <SignatureReveal />
         <p>Have any ideas? <span>Let’s get in touch.</span><br />I’d love to hear from you.</p>
-        <a className="pill-button" href="mailto:rocio.anahi.esp@gmail.com?subject=Portfolio%20Inquiry"><MailIcon gradientId="footer-mail-icon-fill" />E-mail</a>
+        <a className="pill-button" href="mailto:rocio.anahi.esp@gmail.com?subject=Portfolio%20Inquiry"><MailIcon gradientId="footer-mail-icon-fill" />Email</a>
       </div>
       <div className="footer-links">
         <nav aria-label="Footer">
@@ -46,7 +48,7 @@ export function Footer() {
           <Link href="/sketches"><ScribbleText>Sketches</ScribbleText></Link>
           <a href="https://www.linkedin.com/in/rocioanahiespinosa" target="_blank" rel="noreferrer"><ScribbleText>LinkedIn</ScribbleText></a>
         </nav>
-        <small>Site set in Averia Serif Libre and Segoe UI</small>
+        <small>Site set in Averia Serif Libre, Segoe UI and Playwrite IT Trad</small>
         <small>Last updated {lastUpdated}</small>
       </div>
     </footer>
