@@ -1,0 +1,17 @@
+.ft-page{--ft-bg:#f8f5ee;--ft-ink:#5b3a1e;--ft-glow:0;display:grid;place-items:center;min-height:100vh;overflow:hidden;background:var(--ft-bg);color:var(--ft-ink);font-family:var(--font-farm),ui-monospace,Consolas,monospace}
+.ft-stage{display:grid;justify-items:center;gap:5cqw;width:min(92vw,760px);container-type:inline-size}
+/* Wooden frame, with a warm glow that comes up at night */
+.ft-toggle{width:100%;padding:2.2cqw;border-radius:999px;background:linear-gradient(#e6b072,#b8743c);box-shadow:inset 0 .5cqw 0 #f7d79d,inset 0 -.6cqw 0 #8a5326,0 0 0 .5cqw #6b3d1c,0 3cqw 6cqw rgba(60,30,0,.28),0 0 14cqw rgba(255,176,84,var(--ft-glow));cursor:pointer;touch-action:none;user-select:none;-webkit-tap-highlight-color:transparent;outline:none}
+.ft-toggle:focus-visible{outline:.6cqw solid #fff3b0;outline-offset:1.2cqw}
+.ft-well{position:relative;aspect-ratio:184/80;overflow:hidden;border-radius:999px;box-shadow:0 0 0 .5cqw #6b3d1c}
+.ft-well>canvas{display:block;width:100%;height:100%;image-rendering:pixelated}
+/* The scene sits a little below the frame */
+.ft-well::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 1.4cqw 2.4cqw rgba(30,10,0,.45),inset 0 -.6cqw 1.2cqw rgba(255,255,255,.12);pointer-events:none}
+.ft-knob{position:absolute;top:5%;width:39.13%;aspect-ratio:1;overflow:hidden;border-radius:50%;box-shadow:0 1cqw 2.4cqw rgba(10,10,30,.45),0 0 0 .25cqw rgba(255,255,255,.55);will-change:left}
+/* Lightly frosted: the scene behind the knob goes a little soft */
+.ft-knob canvas{display:block;width:100%;height:100%;transform:scale(1.03);filter:blur(.22cqw) saturate(1.1)}
+/* The milk: thin in the middle, denser at the rim, and dimmer at night */
+.ft-knob::before{content:"";position:absolute;inset:0;z-index:1;border-radius:50%;background:radial-gradient(circle at 50% 46%,rgba(255,252,244,.1) 0,rgba(255,252,244,.18) 55%,rgba(255,252,244,.42) 100%);opacity:calc(1 - var(--ft-glow)*.75)}
+.ft-knob::after{content:"";position:absolute;inset:0;z-index:2;border-radius:50%;background:radial-gradient(ellipse 34% 22% at 34% 20%,rgba(255,255,255,.7),transparent 100%),radial-gradient(circle at 72% 84%,rgba(255,255,255,.3),transparent 30%);box-shadow:inset 0 0 0 .3cqw rgba(255,255,255,.7),inset 0 0 2.6cqw rgba(255,255,255,.55),inset 0 -1.8cqw 2.6cqw rgba(60,50,90,.22),inset 0 1.4cqw 2cqw rgba(255,255,255,.5)}
+.ft-caption{display:flex;gap:1.2em;font-size:clamp(14px,3.4cqw,26px);font-weight:700;letter-spacing:.04em;font-variant-numeric:tabular-nums;opacity:.85}
+.ft-caption span:last-child{font-weight:500;opacity:.75}

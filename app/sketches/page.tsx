@@ -11,6 +11,12 @@ export const metadata: Metadata = {
 // The card is drawn narrower so it fills its window, at the same proportions as the roles one.
 const sketches: Sketch[] = [
   {
+    file: "farm-toggle.tsx",
+    title: "Farm toggle",
+    href: "/sketches/farm-toggle",
+    embed: { src: "/sketches/farm-toggle", width: 760, height: 687 },
+  },
+  {
     file: "ascii-card.tsx",
     title: "ASCII card",
     href: "/sketches/card",
