@@ -88,7 +88,9 @@ export function VineNav({ label = "Main navigation" }: { label?: string }) {
   const id = "vine";
   const listId = `${useId().replace(/[^a-zA-Z0-9]/g, "")}-pages`;
 
-  // On phones the links live in a small card opened by the Menu button; a tap outside or Esc closes it
+  // On phones the links live in a small card opened by the Menu button. Only a tap outside, Esc or the
+  // button closes it: leaving the vine with the pointer or losing focus to nothing (iOS) must not,
+  // or the card would vanish on the way to a link.
   useEffect(() => {
     if (!open) return;
     const away = (e: PointerEvent) => { if (!nav.current?.contains(e.target as Node)) setOpen(false); };
@@ -106,9 +108,9 @@ export function VineNav({ label = "Main navigation" }: { label?: string }) {
       data-open={open || undefined}
       data-active={active ?? undefined}
       onPointerEnter={(e) => { if (e.pointerType === "mouse" && window.matchMedia("(min-width: 701px)").matches) setOpen(true); }}
-      onPointerLeave={(e) => { if (e.pointerType === "mouse") { setOpen(false); setActive(null); } }}
+      onPointerLeave={(e) => { setActive(null); if (e.pointerType === "mouse" && window.matchMedia("(min-width: 701px)").matches) setOpen(false); }}
       onFocus={(e) => { if ((e.target as HTMLElement).tagName === "A") setOpen(true); }}
-      onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node)) { setOpen(false); setActive(null); } }}
+      onBlur={(e) => { if (e.relatedTarget && !e.currentTarget.contains(e.relatedTarget as Node)) { setOpen(false); setActive(null); } }}
     >
       <button type="button" className="vine-nav__menu" aria-expanded={open} aria-controls={listId} onClick={() => setOpen((o) => !o)}>Menu</button>
       <svg className="vine-nav__plant" viewBox="0 0 360 100" aria-hidden="true">

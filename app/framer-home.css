@@ -41,3 +41,5 @@
 .footer-contact{align-self:end;padding-bottom:40px}
 /* No divider under the header */
 .site-header{border-bottom:0;border-image-width:1px 0 0}
+/* On phones the title may wrap onto two balanced lines instead of running into the lace */
+@media(max-width:560px){.home-cloth__title{font-size:30px;line-height:1.12;white-space:normal;text-wrap:balance}}

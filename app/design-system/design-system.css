@@ -305,3 +305,4 @@
 .ds-type--smallcaps{color:#7a6a58;font:400 13px/1 var(--font-garamond),Garamond,serif;letter-spacing:.16em;text-transform:uppercase;white-space:pre-wrap}
 @media(max-width:700px){.ds-type--cloth-title{font-size:28px}}
 .vine-demo{display:flex;justify-content:flex-end;width:360px;max-width:100%;height:64px;margin-bottom:36px}
+@media(max-width:700px){.vine-demo{width:160px}}
