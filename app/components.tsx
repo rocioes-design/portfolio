@@ -1,24 +1,24 @@
 import Link from "next/link";
-import { NavLinks } from "./nav-links";
-import { BloomLogo } from "../components/ui/bloom-logo";
-import { ScribbleText } from "../components/ui/scribble-text";
+import { FlowerLogo } from "../components/ui/bloom-logo";
 import { SignatureReveal } from "../components/ui/signature-reveal";
+import { VineNav } from "../components/ui/vine-nav";
 
-export function Header() {
+// The home page has no nav (the lace cloth lists the pages); inner pages get the vine.
+export function Header({ nav = true }: { nav?: boolean }) {
   return (<>
     <header className="site-header">
       <a className="skip-link" href="#content">Skip to content</a>
-      {/* The Bloom opens the design system; the name goes home */}
+      {/* The flower opens the design system; the name goes home */}
       <div className="identity">
         <Link className="identity__logo" href="/design-system" aria-label="Design system" title="Design system">
-          <BloomLogo />
+          <FlowerLogo />
         </Link>
         <Link className="identity__name" href="/">
           <span>Rocío Espinosa</span>
           <small>Product Designer</small>
         </Link>
       </div>
-      <NavLinks />
+      {nav && <VineNav />}
     </header>
     <div id="content" tabIndex={-1} />
   </>);
@@ -37,18 +37,9 @@ export function Footer() {
     <footer className="framer-footer">
       <div className="footer-contact">
         <SignatureReveal />
-        <p>Have any ideas? <span>Let’s get in touch.</span><br />I’d love to hear from you.</p>
-        <a className="pill-button" href="mailto:rocio.anahi.esp@gmail.com?subject=Portfolio%20Inquiry"><MailIcon gradientId="footer-mail-icon-fill" />Email</a>
       </div>
       <div className="footer-links">
-        <nav aria-label="Footer">
-          <Link href="/"><ScribbleText>Home</ScribbleText></Link>
-          <Link href="/about"><ScribbleText>About</ScribbleText></Link>
-          <Link href="/work"><ScribbleText>Work</ScribbleText></Link>
-          <Link href="/sketches"><ScribbleText>Sketches</ScribbleText></Link>
-          <a href="https://www.linkedin.com/in/rocioanahiespinosa" target="_blank" rel="noreferrer"><ScribbleText>LinkedIn</ScribbleText></a>
-        </nav>
-        <small>Site set in Averia Serif Libre, Segoe UI and Playwrite IT Trad</small>
+        <small>Site set in EB Garamond, Averia Serif Libre and Segoe UI</small>
         <small>Last updated {lastUpdated}</small>
       </div>
     </footer>

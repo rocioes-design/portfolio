@@ -19,7 +19,7 @@ interface MagicCursorProps {
 }
 
 const ANIMATIONS = ["mc-fall-1", "mc-fall-2", "mc-fall-3"];
-const DEFAULT_COLORS = ["#DF517A", "#E66089", "#F29BB5"];
+const DEFAULT_COLORS = ["#FAA532", "#FBB654", "#FCC877"];
 const DEFAULT_SIZES = ["1.4rem", "1rem", "0.6rem"];
 const pick = <T,>(items: T[]) => items[Math.floor(Math.random() * items.length)];
 

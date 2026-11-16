@@ -2,7 +2,7 @@
 import { Fragment, useId, useState, type KeyboardEvent } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { instant as INSTANT, sendExit as LEAVE, sendShift as SHIFT, sendSpring as SEND } from "../../components/ui/motion";
-import { BLOOM_PATH } from "../../components/ui/bloom-logo";
+import { FrameFlower } from "../../components/ui/frame-flower";
 import { ScribbleText } from "../../components/ui/scribble-text";
 
 const items = [
@@ -33,7 +33,7 @@ const items = [
   },
 ];
 
-// Motion matches Rare UI's FAQ: the answer pops out of the Bloom mark with a little bounce,
+// Motion matches Rare UI's FAQ: the answer pops out of the flower with a little bounce,
 // the bubbles below slide down to make room, and a closing answer fades out quickly.
 // The timings live in components/ui/motion.ts.
 
@@ -46,7 +46,7 @@ const KEY_STEPS: Record<string, (index: number, last: number) => number> = {
 };
 
 // Laid out as a chat: each question is a bubble you tap, and the answer comes back from me
-// on the right, next to the Bloom mark. One answer is open at a time.
+// on the right, next to a flower from the About frame. One answer is open at a time.
 export function AboutFaq() {
   const reduced = useReducedMotion() ?? false;
   const uid = useId();
@@ -99,7 +99,7 @@ export function AboutFaq() {
                   style={{ originX: 1, originY: 1 }}
                 >
                   <div id={answerId} className="about-faq__answer" role="region" aria-labelledby={questionId}>{item.content}</div>
-                  <span className="about-faq__avatar" aria-hidden="true"><svg viewBox="0 0 100 100"><path fillRule="evenodd" d={BLOOM_PATH} /></svg></span>
+                  <span className="about-faq__avatar" aria-hidden="true"><FrameFlower /></span>
                 </motion.div>
               )}
             </AnimatePresence>

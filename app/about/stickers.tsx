@@ -39,7 +39,7 @@ export function CoffeeSticker() {
 export function CatDoodle() {
   return (
     <svg className="about-doodle" viewBox="0 0 160 90" aria-hidden="true">
-      <g fill="none" stroke="#DF517A" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+      <g fill="none" stroke="#BF6806" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
         <path d="M30 70c-6-18-2-32 4-40l-2-20 18 14c10-4 26-4 36 0l18-14-2 22c8 10 10 26 2 38-12 12-62 12-74 0Z" />
         <path d="M52 44q3-4 6 0M80 44q3-4 6 0" />
         <path d="M67 54h6l-3 3Z" />

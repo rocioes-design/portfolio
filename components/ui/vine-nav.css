@@ -1,0 +1,46 @@
+/* The header keeps its height now that the home page has no nav in it */
+.site-header{min-height:60px}
+@media(max-width:700px){.site-header{min-height:48px}}
+
+/* A trailing vine on the right of the header. Overrides the old tab-style nav rules. */
+:is(.site-header,.vine-demo) .vine-nav{position:relative;flex:0 0 360px;margin-left:auto;border:0}
+.vine-nav__plant{position:absolute;top:0;right:0;width:360px;height:100px;overflow:visible;pointer-events:none}
+.vine-nav__stem{fill:none;stroke:#6F5339;stroke-width:1.6;stroke-linecap:round}
+.vine-nav__stem--thin{stroke-width:1.1}
+.vine-nav__vein{fill:none;stroke:rgba(250,238,220,.45);stroke-width:.7;stroke-linecap:round}
+
+/* Leaves rest above the links, lift when you hover the vine, and part further over the hovered link.
+   A slight overshoot makes them feel springy. */
+.vine-nav__leaf{transform:rotate(var(--rest));transition:transform var(--dur-slow) cubic-bezier(.34,1.35,.64,1);transition-delay:calc(var(--delay) * .4)}
+.vine-nav[data-open] .vine-nav__leaf{transform:rotate(var(--open));transition-delay:var(--delay)}
+.vine-nav[data-active="0"] .vine-nav__leaf[data-link="0"],.vine-nav[data-active="1"] .vine-nav__leaf[data-link="1"],.vine-nav[data-active="2"] .vine-nav__leaf[data-link="2"],.vine-nav[data-active="3"] .vine-nav__leaf[data-link="3"]{transform:rotate(var(--part));transition-delay:0ms}
+/* The Menu button only shows on phones */
+.vine-nav__menu{display:none}
+
+.vine-nav ol{margin:0;padding:0;list-style:none}
+.vine-nav li{position:absolute;top:var(--y);left:var(--x);transform:translateX(-50%)}
+:is(.site-header,.vine-demo) .vine-nav a{position:relative;display:block;min-width:0;height:auto;padding:2px 4px;border:0;border-radius:3px;color:#5b4f43;font:400 16px/1.2 var(--font-garamond),Garamond,serif;letter-spacing:0;text-transform:none;text-decoration:none;white-space:nowrap;transition:color var(--dur-fast)}
+:is(.site-header,.vine-demo) .vine-nav a:hover{color:#161412}
+:is(.site-header,.vine-demo) .vine-nav a[aria-current="page"]{color:#161412}
+/* A small seed under the current page, so it isn't marked by color alone */
+:is(.site-header,.vine-demo) .vine-nav a[aria-current="page"]::after{content:"";position:absolute;left:50%;bottom:-4px;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:#8E6E4F}
+:is(.site-header,.vine-demo) .vine-nav a:focus-visible{outline:2px solid #6F5339;outline-offset:2px}
+
+/* Phones: the vine is cropped to its right end and the links drop down as a small linen card */
+@media(max-width:700px){
+  :is(.site-header,.vine-demo) .vine-nav{flex-basis:150px}
+  .vine-nav__menu{position:absolute;right:30px;bottom:2px;z-index:2;display:block;padding:4px 7px;border:0;border-radius:3px;background:var(--paper);color:#5b4f43;font:italic 400 15px/1 var(--font-garamond),Garamond,serif;cursor:pointer}
+  .vine-nav__menu:focus-visible{outline:2px solid #6F5339;outline-offset:2px}
+  .vine-nav__plant{clip-path:inset(-10px 0 -40px 210px)}
+  .vine-nav ol{position:absolute;top:calc(100% + 6px);right:0;z-index:20;display:grid;gap:2px;min-width:150px;padding:10px;border-radius:6px;background:#EFE8DB;box-shadow:0 1px 1px rgba(90,70,45,.18),0 10px 22px rgba(90,70,45,.13);opacity:0;visibility:hidden;transform:translateY(-4px);transition:opacity var(--dur-fast),transform var(--dur-moderate) cubic-bezier(.2,.8,.2,1),visibility 0s var(--dur-fast)}
+  .vine-nav[data-open] ol{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+  .vine-nav li,.vine-nav[data-open] li{position:static;opacity:1;transform:none}
+  :is(.site-header,.vine-demo) .vine-nav a{padding:8px 10px;font-size:18px}
+  :is(.site-header,.vine-demo) .vine-nav a[aria-current="page"]::after{left:auto;right:10px;bottom:50%;margin:0 0 -2px}
+}
+@media(max-width:350px){:is(.site-header,.vine-demo) .vine-nav{flex:0 0 150px;margin-left:auto;border-top:0}}
+
+@media(prefers-reduced-motion:reduce){.vine-nav__leaf,.vine-nav[data-open] .vine-nav__leaf{transition:none}}
+/* Inked edges on the leaves, so the vine matches the hand-drawn illustrations */
+.vine-nav__edge{fill:none;stroke:#3e2a18;stroke-width:.6;stroke-linejoin:round;opacity:.8}
+.vine-nav__vein{stroke:rgba(62,42,24,.55)!important}

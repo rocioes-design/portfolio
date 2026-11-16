@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Averia_Serif_Libre, Playwrite_IT_Trad } from "next/font/google";
+import { Averia_Serif_Libre, EB_Garamond } from "next/font/google";
 import { MagicCursor } from "../components/ui/magic-cursor";
 import { MotionProvider } from "../components/ui/motion-provider";
 import "./globals.css";
@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 };
 
 const averiaSerif = Averia_Serif_Libre({ weight: "400", subsets: ["latin"], variable: "--font-averia-serif" });
-// Handwriting for the paper labels.
-const playwrite = Playwrite_IT_Trad({ variable: "--font-label" });
+// Classic serif for the lace cloth and the About frame (italic titles, regular text).
+const garamond = EB_Garamond({ subsets: ["latin"], style: ["normal", "italic"], variable: "--font-garamond" });
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en" className={`${averiaSerif.variable} ${playwrite.variable}`}><body><MotionProvider>{children}</MotionProvider><MagicCursor /></body></html>;
+  return <html lang="en" className={`${averiaSerif.variable} ${garamond.variable}`}><body><MotionProvider>{children}</MotionProvider><MagicCursor /></body></html>;
 }

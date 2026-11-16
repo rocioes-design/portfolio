@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Footer, Header } from "../components";
+import { FloralCorner } from "../../components/ui/floral-frame";
 import { SketchWindow, type Sketch } from "./sketch-window";
 
 export const metadata: Metadata = {
@@ -32,10 +33,12 @@ const sketches: Sketch[] = [
 
 export default function Sketches() {
   return <div className="page-shell"><Header />
-    <main>
+    <main className="has-corners">
+    {/* Flowering sprays in the top corners, from the About page frame */}
+    <FloralCorner className="page-corner page-corner--left" />
+    <FloralCorner className="page-corner page-corner--right" />
     <section className="work-intro">
-      <div className="paper-note"><span>Under construction</span></div>
-      <h1><img src="/media/sketches/pencil.svg" alt="" /><span>Sketches</span><img src="/media/sketches/artist-palette.svg" alt="" /></h1>
+      <h1>Sketches</h1>
       <p>Here are some sketches: standalone components and concept experiments I enjoyed creating. It’s my space for inspiration and discovery.</p>
     </section>
     <div className="sketches-grid">

@@ -1,0 +1,28 @@
+/* No card: the vines sit straight on the page, in the same cream */
+.floral-frame{position:relative}
+.floral-frame__art{position:absolute;inset:0;width:100%;height:100%}
+.floral-frame__paper{fill:#F6F0E4}
+/* Ink is a warm sepia, like an old engraving; lines are thin and a little uneven (see hand-drawn.tsx) */
+.floral-frame__stem-ink{fill:none;stroke:#5E4A2E;stroke-width:2.6;stroke-linecap:round}
+.floral-frame__stem{fill:none;stroke:#B9C590;stroke-width:1.2;stroke-linecap:round}
+.floral-frame__strand-ink{fill:none;stroke:#6E5A3A;stroke-width:1.7;stroke-linecap:round;opacity:.85}
+.floral-frame__strand{fill:none;stroke:#CAD4A3;stroke-width:.6;stroke-linecap:round}
+.floral-frame__shade{fill:rgba(70,88,40,.12)}
+.floral-frame__hatch{fill:none;stroke:rgba(70,60,34,.5);stroke-width:.4;stroke-linecap:round}
+.floral-frame__vein{fill:none;stroke:rgba(84,70,42,.65);stroke-width:.45;stroke-linecap:round}
+.floral-frame__edge{fill:none;stroke:#5E4A2E;stroke-width:.65;stroke-linejoin:round}
+.floral-frame__petal{fill:none;stroke:#8E5420;stroke-width:.6;stroke-linejoin:round}
+.floral-frame__striation{fill:none;stroke:rgba(150,84,24,.55);stroke-width:.35;stroke-linecap:round}
+.floral-frame__sepal{fill:#93A66A}
+.floral-frame__heart{fill:#A6B068}
+.floral-frame__heart-ink{fill:none;stroke:#5E4A2E;stroke-width:.5}
+.floral-frame__stamen{fill:#8E4E14}
+.floral-frame__content{position:relative;padding:136px 140px 124px}
+@media(max-width:620px){.floral-frame__content{padding:100px 54px 88px}}
+.floral-frame__berry{fill:#8E4E14}
+/* The divider is drawn small, so its stems are finer */
+.floral-divider .floral-frame__stem-ink{stroke-width:1.9}
+.floral-divider .floral-frame__stem{stroke-width:.8}
+.floral-divider .floral-frame__strand-ink{stroke-width:1.3}
+.floral-divider .floral-frame__strand{stroke-width:.45}
+.floral-frame__hair{fill:none;stroke:#5E4A2E;stroke-width:.5;stroke-linecap:round}

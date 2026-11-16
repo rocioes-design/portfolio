@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useMotionValueEvent, useReducedMotion, useSpring, useTransform } from "framer-motion";
-import { BLOOM_PATH } from "../../components/ui/bloom-logo";
+import { FrameFlower } from "../../components/ui/frame-flower";
 import { FluidHoverHighlight, useFluidHover } from "../../components/ui/fluid-hover";
 
 // Adapted from Rare UI's Rail TOC: a rail runs through a dot for every heading, solid up to where
@@ -220,7 +220,7 @@ export function RailToc({ items, title = "Overview" }: { items: TocItem[]; title
         )}
         {geometry && (
           <motion.span className="rail-toc__bloom" style={{ x, y, rotate: spin }} aria-hidden="true">
-            <svg viewBox="0 0 100 100"><path fillRule="evenodd" d={BLOOM_PATH} /></svg>
+            <FrameFlower />
           </motion.span>
         )}
         <FluidHoverHighlight hover={hover} className="rail-toc__hover" />

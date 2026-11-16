@@ -12,7 +12,7 @@
 .pw__light--close::after{content:"";position:absolute;inset:-6px}
 .pw__light--close svg{width:9px;height:9px;fill:none;stroke:#7a1b14;stroke-width:1.4;stroke-linecap:round;opacity:0;transition:opacity var(--dur-fast)}
 .pw__light--close:hover svg,.pw__light--close:focus-visible svg{opacity:1}
-.pw__light--close:focus-visible{outline:2px solid var(--pink);outline-offset:2px}
+.pw__light--close:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .pw__domain{font:500 var(--text-small)/1 ui-monospace,"SF Mono",Menlo,Consolas,monospace;letter-spacing:.02em;color:var(--text)}
 
 .pw__body{display:grid;grid-template-columns:minmax(0,1fr) 340px;min-height:0;overflow:auto}
@@ -25,8 +25,8 @@
 .pw__clip:hover,.pw__clip[data-hovered]{color:var(--ink)}
 .pw__clip[aria-pressed="true"]{color:var(--ink);border-color:var(--line-strong);background:var(--surface)}
 .pw__hover{border:1px solid var(--line-soft);border-radius:10px;background:rgba(255,255,255,.7)}
-.pw__clip:focus-visible{outline:2px solid var(--pink);outline-offset:2px}
-.pw__clip-progress{position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--pink);transform-origin:left;transition:transform .25s linear}
+.pw__clip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.pw__clip-progress{position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--accent);transform-origin:left;transition:transform .25s linear}
 
 .pw__info{display:flex;flex-direction:column;gap:22px;padding:30px 26px;border-left:1px solid var(--line-soft)}
 .pw__title{margin:0;font:400 var(--text-title)/1.1 var(--font-averia-serif),"Iowan Old Style",serif;letter-spacing:-.01em;color:var(--ink)}
@@ -36,9 +36,9 @@
 .pw__facts dd{margin:0;color:var(--text);font:400 var(--text-small)/1.4 var(--sans);text-align:right}
 .pw__description{margin:0;padding-top:20px;border-top:1px solid var(--line-soft);color:var(--text);font:400 var(--text-body)/1.6 var(--sans)}
 .pw__link{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;margin-top:auto;padding:10px 17px 10px 18px;border-radius:999px;background:var(--ink);color:#fff;font:500 var(--text-small)/1 var(--sans);text-decoration:none;transition:background-color var(--dur-fast),transform var(--dur-fast)}
-.pw__link:hover{background:var(--pink)}
+.pw__link:hover{background:#3a3532}
 .pw__link:active{transform:scale(.98)}
-.pw__link:focus-visible{outline:2px solid var(--pink);outline-offset:3px}
+.pw__link:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 
 @keyframes pwIn{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
 @keyframes pwFade{from{opacity:.4}to{opacity:1}}

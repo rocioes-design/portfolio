@@ -3,7 +3,9 @@ import type { Metadata } from "next";
 import { Footer, Header } from "../components";
 import { CatDoodle, CoffeeSticker, MateSticker } from "./stickers";
 import { AboutFaq } from "./about-faq";
-import { GoldPaperclip } from "./paperclip";
+import { Catchword, PointingHand } from "./scroll-cues";
+import Image from "next/image";
+import { FloralFrame } from "../../components/ui/floral-frame";
 
 export const metadata: Metadata = {
   title: "About — Rocío Espinosa",
@@ -42,17 +44,16 @@ function layoutStyle({ x, y, w, tilt, z }: Layout) {
 export default function About() {
   return <div className="page-shell"><Header />
     <main>
-    <section className="about-intro about-intro--split">
-      <div className="about-intro__text">
-      <h1>About me</h1>
-      <p className="about-intro__meta"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 15s5-4.6 5-8.5a5 5 0 0 0-10 0C3 10.4 8 15 8 15Z" /><circle cx="8" cy="6.5" r="1.8" /></svg>Buenos Aires, Argentina</p>
-      <p>I’m focused on practical, user-centered interfaces. I started learning front-end (HTML, CSS and a bit of JavaScript), which helps me design with implementation and handoff in mind. Over time I moved into product design and Figma, where I can iterate fast and solve interaction problems clearly—auto-layout and components are my favorite tools for that.</p>
+    {/* The intro sits in a printed floral frame and opens with an illuminated initial (made with INITIĀLIS) */}
+    <section className="about-framed">
+      <FloralFrame className="about-frame">
+      <h1 className="about-frame__title">About me</h1>
+      <p className="about-frame__meta"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 15s5-4.6 5-8.5a5 5 0 0 0-10 0C3 10.4 8 15 8 15Z" /><circle cx="8" cy="6.5" r="1.8" /></svg>Buenos Aires, Argentina</p>
+      <p><Image className="about-frame__initial" src="/media/about/initial-i.png" alt="I" width={600} height={600} sizes="(max-width: 620px) 76px, 108px" loading="eager" />’m focused on practical, user-centered interfaces. I started learning front-end (HTML, CSS and a bit of JavaScript), which helps me design with implementation and handoff in mind. Over time I moved into product design and Figma, where I can iterate fast and solve interaction problems clearly—auto-layout and components are my favorite tools for that.</p>
       <p>I’ve spent 4+ years designing web and mobile products, most recently at Napsis, where I redesigned the navigation for 10,000+ users and built the design system the team ships with. Before that I designed event invitations and RSVPs at Janos Eventos, client products at KonstantKreative, and a lot of freelance work in between.</p>
-      </div>
-      <figure className="about-portrait">
-        <span className="about-portrait__clip"><GoldPaperclip /></span>
-        <div className="about-stamp__paper"><img src="/media/about/rocio.webp" alt="Rocío smiling, sitting in a café by the window" /></div>
-      </figure>
+      <Catchword />
+      </FloralFrame>
+      <PointingHand />
     </section>
     <section className="about-faq-section" aria-labelledby="about-faq-title"><h2 className="about-section-title" id="about-faq-title">FAQ</h2><AboutFaq /></section>
     <section className="about-photos" aria-labelledby="about-photos-title">

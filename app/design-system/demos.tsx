@@ -2,7 +2,7 @@
 
 import { useRef, useState, type ReactNode } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { BLOOM_PATH } from "../../components/ui/bloom-logo";
+import { FrameFlower } from "../../components/ui/frame-flower";
 import { FluidHoverHighlight, useFluidHover } from "../../components/ui/fluid-hover";
 import { instant, sendExit, sendSpring } from "../../components/ui/motion";
 
@@ -26,7 +26,7 @@ export function Swatch({ name, hex, token, usage }: { name: string; hex: string;
         <strong>{name}</strong>
         <code>{token ? `--${token}` : hex}</code>
         <span>{usage}</span>
-        <code className="ds-swatch__hex">{hex}</code>
+        {token && <code className="ds-swatch__hex">{hex}</code>}
       </div>
     </li>
   );
@@ -71,7 +71,7 @@ export function SendDemo() {
               style={{ originX: 1, originY: 1 }}
             >
               <div className="about-faq__answer"><p>Yes! Email me.</p></div>
-              <span className="about-faq__avatar" aria-hidden="true"><svg viewBox="0 0 100 100"><path fillRule="evenodd" d={BLOOM_PATH} /></svg></span>
+              <span className="about-faq__avatar" aria-hidden="true"><FrameFlower /></span>
             </motion.div>
           )}
         </AnimatePresence>

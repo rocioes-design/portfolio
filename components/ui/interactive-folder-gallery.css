@@ -14,7 +14,7 @@
 .ifg-photo.is-open:active{cursor:grabbing}
 .ifg-photo img{display:block;width:100%;height:100%;object-fit:cover;pointer-events:none}
 .ifg-photo-link{display:block;width:100%;height:100%;border-radius:inherit}
-.ifg-photo-link:focus-visible{outline:3px solid var(--pink);outline-offset:-3px}
+.ifg-photo-link:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
 .ifg-front:focus-visible{outline:none}
 .ifg-front:focus-visible .ifg-front-body{outline:3px solid #fff;outline-offset:-6px}
 
@@ -62,7 +62,7 @@
 .ifg-actions{position:absolute;bottom:40px;display:flex;align-items:center;gap:10px;pointer-events:none}
 .ifg-close{height:44px;padding:0 20px;border:1px solid rgba(0,0,0,.1);border-radius:999px;background:var(--surface);color:var(--text);font:500 var(--text-small)/1 var(--sans);cursor:pointer;pointer-events:auto;transition:background-color var(--dur-fast)}
 .ifg-close:hover{background:var(--soft)}
-.ifg-close:focus-visible{outline:2px solid var(--pink);outline-offset:2px}
+.ifg-close:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .ifg-hint{padding:12px 24px;border:1px solid rgba(0,0,0,.1);border-radius:999px;background:rgba(0,0,0,.05);backdrop-filter:blur(12px);color:rgba(0,0,0,.5);font-size:var(--text-small);font-weight:500;letter-spacing:.1em;text-transform:uppercase;pointer-events:none}
 
 @media(max-width:700px){

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Footer, Header } from "../components";
+import { FloralCorner } from "../../components/ui/floral-frame";
 import { MediaCarousel, type CarouselMedia } from "../../components/ui/media-carousel";
 import type { ProjectWindowData } from "../../components/ui/project-window";
 import { ScribbleText } from "../../components/ui/scribble-text";
@@ -104,9 +105,12 @@ const slug = (title: string) => `work-${title.toLowerCase().replace(/[^a-z0-9]+/
 
 export default function Work() {
   return <div className="page-shell"><Header />
-    <main>
+    <main className="has-corners">
+    {/* Flowering sprays in the top corners, from the About page frame */}
+    <FloralCorner className="page-corner page-corner--left" />
+    <FloralCorner className="page-corner page-corner--right" />
     <section className="work-intro">
-      <h1><img src="/media/work/pen.svg" alt="" /><span>Work</span><img src="/media/work/hot-beverage.svg" alt="" /></h1>
+      <h1>Work</h1>
       <p>My client work at Napsis and Janos Eventos is under NDA, so here are personal projects made with the same process: research, iteration and a design system behind every screen.</p>
     </section>
     <div className="work-projects">
