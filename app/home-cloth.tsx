@@ -33,7 +33,7 @@ export function HomeCloth() {
       </nav>
       <div className="home-cloth__social">
         <a href="https://www.linkedin.com/in/rocioanahiespinosa" target="_blank" rel="noreferrer"><ScribbleText>LinkedIn</ScribbleText></a>
-        <a href="/media/rocio-espinosa-product-designer-resume.pdf" download="Rocio Espinosa - Product Designer - Resume.pdf"><ScribbleText>Resume</ScribbleText></a>
+        <a href="/media/rocio-espinosa-product-designer-resume.pdf" download="Rocio Espinosa - UX UI & Product Designer - Resume.pdf"><ScribbleText>Resume</ScribbleText></a>
         <a href="mailto:rocio.anahi.esp@gmail.com?subject=Portfolio%20Inquiry"><ScribbleText>E-mail</ScribbleText></a>
       </div>
     </LaceCloth>
